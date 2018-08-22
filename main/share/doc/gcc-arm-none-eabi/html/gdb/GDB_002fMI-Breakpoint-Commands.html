@@ -10,7 +10,7 @@
 <link rel="next" href="GDB_002fMI-Catchpoint-Commands.html#GDB_002fMI-Catchpoint-Commands" title="GDB/MI Catchpoint Commands">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -49,12 +49,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="GDB_002fMI.html#GDB_002fMI">GDB/MI</a>
 
 <h3 class="section">27.8 <span class="sc">gdb/mi</span> Breakpoint Commands</h3>
 
-<p><a name="index-breakpoint-commands-for-_0040sc_007bgdb_002fmi_007d-2872"></a><a name="index-g_t_0040sc_007bgdb_002fmi_007d_002c-breakpoint-commands-2873"></a>This section documents <span class="sc">gdb/mi</span> commands for manipulating
+<p><a name="index-breakpoint-commands-for-_0040sc_007bgdb_002fmi_007d-2921"></a><a name="index-g_t_0040sc_007bgdb_002fmi_007d_002c-breakpoint-commands-2922"></a>This section documents <span class="sc">gdb/mi</span> commands for manipulating
 breakpoints.
 
 <h4 class="subheading">The <code>-break-after</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dafter-2874"></a>
+<p><a name="index-g_t_002dbreak_002dafter-2923"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -97,7 +97,7 @@ the `<samp><span class="samp">-break-list</span></samp>' command, see the descri
 </pre>
 <h4 class="subheading">The <code>-break-commands</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dcommands-2875"></a>
+<p><a name="index-g_t_002dbreak_002dcommands-2924"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -129,7 +129,7 @@ some variables whenever breakpoint is hit and then continuing.
 </pre>
 <h4 class="subheading">The <code>-break-condition</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dcondition-2876"></a>
+<p><a name="index-g_t_002dbreak_002dcondition-2925"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -165,7 +165,7 @@ command below).
 </pre>
 <h4 class="subheading">The <code>-break-delete</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002ddelete-2877"></a>
+<p><a name="index-g_t_002dbreak_002ddelete-2926"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -197,7 +197,7 @@ list.  This is obviously reflected in the breakpoint list.
 </pre>
 <h4 class="subheading">The <code>-break-disable</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002ddisable-2878"></a>
+<p><a name="index-g_t_002dbreak_002ddisable-2927"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -231,7 +231,7 @@ break list is now set to `<samp><span class="samp">n</span></samp>' for the name
 </pre>
 <h4 class="subheading">The <code>-break-enable</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002denable-2879"></a>
+<p><a name="index-g_t_002dbreak_002denable-2928"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -264,7 +264,7 @@ break list is now set to `<samp><span class="samp">n</span></samp>' for the name
 </pre>
 <h4 class="subheading">The <code>-break-info</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dinfo-2880"></a>
+<p><a name="index-g_t_002dbreak_002dinfo-2929"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -286,7 +286,7 @@ table.
 
 <h4 class="subheading">The <code>-break-insert</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dinsert-2881"></a>
+<p><a name="index-g_t_002dbreak_002dinsert-2930"></a><a name="g_t_002dbreak_002dinsert"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -296,17 +296,28 @@ table.
 </pre>
 <p class="noindent">If specified, <var>location</var>, can be one of:
 
-     <ul>
-<li>function
-<!-- @item +offset -->
-<!-- @item -offset -->
-<!-- @item linenum -->
-<li>filename:linenum
-<li>filename:function
-<li>*address
-</ul>
+     <dl>
+<dt><var>linespec location</var><dd>A linespec location.  See <a href="Linespec-Locations.html#Linespec-Locations">Linespec Locations</a>.
 
-   <p>The possible optional parameters of this command are:
+     <br><dt><var>explicit location</var><dd>An explicit location.  <span class="sc">gdb/mi</span> explicit locations are
+analogous to the CLI's explicit locations using the option names
+listed below.  See <a href="Explicit-Locations.html#Explicit-Locations">Explicit Locations</a>.
+
+          <dl>
+<dt>`<samp><span class="samp">--source </span><var>filename</var></samp>'<dd>The source file name of the location.  This option requires the use
+of either `<samp><span class="samp">--function</span></samp>' or `<samp><span class="samp">--line</span></samp>'.
+
+          <br><dt>`<samp><span class="samp">--function </span><var>function</var></samp>'<dd>The name of a function or method.
+
+          <br><dt>`<samp><span class="samp">--label </span><var>label</var></samp>'<dd>The name of a label.
+
+          <br><dt>`<samp><span class="samp">--line </span><var>lineoffset</var></samp>'<dd>An absolute or relative line offset from the start of the location. 
+</dl>
+
+     <br><dt><var>address location</var><dd>An address location, *<var>address</var>.  See <a href="Address-Locations.html#Address-Locations">Address Locations</a>. 
+</dl>
+
+<p class="noindent">The possible optional parameters of this command are:
 
      <dl>
 <dt>`<samp><span class="samp">-t</span></samp>'<dd>Insert a temporary breakpoint. 
@@ -321,7 +332,8 @@ cannot be parsed.
 is used together with `<samp><span class="samp">-h</span></samp>', a fast tracepoint is created. 
 <br><dt>`<samp><span class="samp">-c </span><var>condition</var></samp>'<dd>Make the breakpoint conditional on <var>condition</var>. 
 <br><dt>`<samp><span class="samp">-i </span><var>ignore-count</var></samp>'<dd>Initialize the <var>ignore-count</var>. 
-<br><dt>`<samp><span class="samp">-p </span><var>thread-id</var></samp>'<dd>Restrict the breakpoint to the specified <var>thread-id</var>. 
+<br><dt>`<samp><span class="samp">-p </span><var>thread-id</var></samp>'<dd>Restrict the breakpoint to the thread with the specified global
+<var>thread-id</var>. 
 </dl>
 
 <h5 class="subsubheading">Result</h5>
@@ -376,7 +388,7 @@ resulting breakpoint.
 </pre>
 <h4 class="subheading">The <code>-dprintf-insert</code> Command</h4>
 
-<p><a name="index-g_t_002ddprintf_002dinsert-2882"></a>
+<p><a name="index-g_t_002ddprintf_002dinsert-2931"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -385,17 +397,8 @@ resulting breakpoint.
          [ -p <var>thread-id</var> ] [ <var>location</var> ] [ <var>format</var> ]
          [ <var>argument</var> ]
 </pre>
-<p class="noindent">If specified, <var>location</var>, can be one of:
-
-     <ul>
-<li><var>function</var>
-<!-- @item +offset -->
-<!-- @item -offset -->
-<!-- @item @var{linenum} -->
-<li><var>filename</var>:<var>linenum</var>
-<li><var>filename</var>:function
-<li>*<var>address</var>
-</ul>
+<p class="noindent">If supplied, <var>location</var> may be specified the same way as for
+the <code>-break-insert</code> command.  See <a href="_002dbreak_002dinsert.html#g_t_002dbreak_002dinsert">-break-insert</a>.
 
    <p>The possible optional parameters of this command are:
 
@@ -410,7 +413,8 @@ cannot be parsed.
 <br><dt>`<samp><span class="samp">-c </span><var>condition</var></samp>'<dd>Make the breakpoint conditional on <var>condition</var>. 
 <br><dt>`<samp><span class="samp">-i </span><var>ignore-count</var></samp>'<dd>Set the ignore count of the breakpoint (see <a href="Conditions.html#Conditions">ignore count</a>)
 to <var>ignore-count</var>. 
-<br><dt>`<samp><span class="samp">-p </span><var>thread-id</var></samp>'<dd>Restrict the breakpoint to the specified <var>thread-id</var>. 
+<br><dt>`<samp><span class="samp">-p </span><var>thread-id</var></samp>'<dd>Restrict the breakpoint to the thread with the specified global
+<var>thread-id</var>. 
 </dl>
 
 <h5 class="subsubheading">Result</h5>
@@ -443,7 +447,7 @@ resulting breakpoint.
 </pre>
 <h4 class="subheading">The <code>-break-list</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dlist-2883"></a>
+<p><a name="index-g_t_002dbreak_002dlist-2932"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -506,7 +510,7 @@ name, line number
 </pre>
    <h4 class="subheading">The <code>-break-passcount</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dpasscount-2884"></a>
+<p><a name="index-g_t_002dbreak_002dpasscount-2933"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -519,7 +523,7 @@ command `<samp><span class="samp">passcount</span></samp>'.
 
 <h4 class="subheading">The <code>-break-watch</code> Command</h4>
 
-<p><a name="index-g_t_002dbreak_002dwatch-2885"></a>
+<p><a name="index-g_t_002dbreak_002dwatch-2934"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 

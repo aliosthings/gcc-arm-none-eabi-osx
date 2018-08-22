@@ -12,7 +12,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -47,7 +47,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Pseudo-Ops.html#Pseudo-Ops">Pseudo Ops<
 
 <h3 class="section">7.65 <code>.p2align[wl] </code><var>abs-expr</var><code>, </code><var>abs-expr</var><code>, </code><var>abs-expr</var></h3>
 
-<p><a name="index-padding-the-location-counter-given-a-power-of-two-424"></a><a name="index-g_t_0040code_007bp2align_007d-directive-425"></a>Pad the location counter (in the current subsection) to a particular
+<p><a name="index-padding-the-location-counter-given-a-power-of-two-426"></a><a name="index-g_t_0040code_007bp2align_007d-directive-427"></a>Pad the location counter (in the current subsection) to a particular
 storage boundary.  The first expression (which must be absolute) is the
 number of low-order zero bits the location counter must have after
 advancement.  For example `<samp><span class="samp">.p2align 3</span></samp>' advances the location
@@ -56,7 +56,7 @@ multiple of 8, no change is needed.
 
    <p>The second expression (also absolute) gives the fill value to be stored in the
 padding bytes.  It (and the comma) may be omitted.  If it is omitted, the
-padding bytes are normally zero.  However, on some systems, if the section is
+padding bytes are normally zero.  However, on most systems, if the section is
 marked as containing code and the fill value is omitted, the space is filled
 with no-op instructions.
 
@@ -68,7 +68,7 @@ fill value (the second argument) entirely by simply using two commas after the
 required alignment; this can be useful if you want the alignment to be filled
 with no-op instructions when appropriate.
 
-   <p><a name="index-g_t_0040code_007bp2alignw_007d-directive-426"></a><a name="index-g_t_0040code_007bp2alignl_007d-directive-427"></a>The <code>.p2alignw</code> and <code>.p2alignl</code> directives are variants of the
+   <p><a name="index-g_t_0040code_007bp2alignw_007d-directive-428"></a><a name="index-g_t_0040code_007bp2alignl_007d-directive-429"></a>The <code>.p2alignw</code> and <code>.p2alignl</code> directives are variants of the
 <code>.p2align</code> directive.  The <code>.p2alignw</code> directive treats the fill
 pattern as a two byte word value.  The <code>.p2alignl</code> directives treats the
 fill pattern as a four byte longword value.  For example, <code>.p2alignw

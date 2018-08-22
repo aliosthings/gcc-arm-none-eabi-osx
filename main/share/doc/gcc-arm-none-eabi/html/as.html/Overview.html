@@ -11,7 +11,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -62,6 +62,7 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
       [<b>-K</b>] [<b>-L</b>] [<b>--listing-lhs-width</b>=<var>NUM</var>]
       [<b>--listing-lhs-width2</b>=<var>NUM</var>] [<b>--listing-rhs-width</b>=<var>NUM</var>]
       [<b>--listing-cont-lines</b>=<var>NUM</var>] [<b>--keep-locals</b>]
+      [<b>--no-pad-sections</b>]
       [<b>-o</b> <var>objfile</var>] [<b>-R</b>]
       [<b>--hash-size</b>=<var>NUM</var>] [<b>--reduce-memory-overheads</b>]
       [<b>--statistics</b>]
@@ -69,10 +70,13 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
       [<b>-W</b>] [<b>--warn</b>] [<b>--fatal-warnings</b>] [<b>-w</b>] [<b>-x</b>]
       [<b>-Z</b>] [<b>@</b><var>FILE</var>]
       [<b>--sectname-subst</b>] [<b>--size-check=[error|warning]</b>]
+      [<b>--elf-stt-common=[no|yes]</b>]
       [<b>--target-help</b>] [<var>target-options</var>]
       [<b>--</b>|<var>files</var> ...]
+     <!-- man end -->
      <!-- Target dependent options are listed below.  Keep the list sorted. -->
      <!-- Add an empty line for separation. -->
+     <!-- man begin TARGET -->
      
      <em>Target AArch64 options:</em>
         [<b>-EB</b>|<b>-EL</b>]
@@ -89,6 +93,7 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
         [<b>-mcpu=</b><var>cpu</var>]
         [<b>-mA6</b>|<b>-mARC600</b>|<b>-mARC601</b>|<b>-mA7</b>|<b>-mARC700</b>|<b>-mEM</b>|<b>-mHS</b>]
         [<b>-mcode-density</b>]
+        [<b>-mrelax</b>]
         [<b>-EB</b>|<b>-EL</b>]
      
      <em>Target ARM options:</em>
@@ -192,15 +197,18 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
         [<b>-mips32r3</b>] [<b>-mips32r5</b>] [<b>-mips32r6</b>] [<b>-mips64</b>] [<b>-mips64r2</b>]
         [<b>-mips64r3</b>] [<b>-mips64r5</b>] [<b>-mips64r6</b>]
         [<b>-construct-floats</b>] [<b>-no-construct-floats</b>]
+        [<b>-mignore-branch-isa</b>] [<b>-mno-ignore-branch-isa</b>]
         [<b>-mnan=</b><var>encoding</var>]
         [<b>-trap</b>] [<b>-no-break</b>] [<b>-break</b>] [<b>-no-trap</b>]
         [<b>-mips16</b>] [<b>-no-mips16</b>]
+        [<b>-mmips16e2</b>] [<b>-mno-mips16e2</b>]
         [<b>-mmicromips</b>] [<b>-mno-micromips</b>]
         [<b>-msmartmips</b>] [<b>-mno-smartmips</b>]
         [<b>-mips3d</b>] [<b>-no-mips3d</b>]
         [<b>-mdmx</b>] [<b>-no-mdmx</b>]
         [<b>-mdsp</b>] [<b>-mno-dsp</b>]
         [<b>-mdspr2</b>] [<b>-mno-dspr2</b>]
+        [<b>-mdspr3</b>] [<b>-mno-dspr3</b>]
         [<b>-mmsa</b>] [<b>-mno-msa</b>]
         [<b>-mxpa</b>] [<b>-mno-xpa</b>]
         [<b>-mmt</b>] [<b>-mno-mt</b>]
@@ -248,13 +256,23 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
          <b>-m620</b>|<b>-me500</b>|<b>-e500x2</b>|<b>-me500mc</b>|<b>-me500mc64</b>|<b>-me5500</b>|<b>-me6500</b>|<b>-mppc64bridge</b>|
          <b>-mbooke</b>|<b>-mpower4</b>|<b>-mpwr4</b>|<b>-mpower5</b>|<b>-mpwr5</b>|<b>-mpwr5x</b>|<b>-mpower6</b>|<b>-mpwr6</b>|
          <b>-mpower7</b>|<b>-mpwr7</b>|<b>-mpower8</b>|<b>-mpwr8</b>|<b>-mpower9</b>|<b>-mpwr9</b><b>-ma2</b>|
-         <b>-mcell</b>|<b>-mspe</b>|<b>-mtitan</b>|<b>-me300</b>|<b>-mcom</b>]
+         <b>-mcell</b>|<b>-mspe</b>|<b>-mspe2</b>|<b>-mtitan</b>|<b>-me300</b>|<b>-mcom</b>]
         [<b>-many</b>] [<b>-maltivec</b>|<b>-mvsx</b>|<b>-mhtm</b>|<b>-mvle</b>]
         [<b>-mregnames</b>|<b>-mno-regnames</b>]
         [<b>-mrelocatable</b>|<b>-mrelocatable-lib</b>|<b>-K PIC</b>] [<b>-memb</b>]
         [<b>-mlittle</b>|<b>-mlittle-endian</b>|<b>-le</b>|<b>-mbig</b>|<b>-mbig-endian</b>|<b>-be</b>]
         [<b>-msolaris</b>|<b>-mno-solaris</b>]
         [<b>-nops=</b><var>count</var>]
+     
+     <em>Target PRU options:</em>
+        [<b>-link-relax</b>]
+        [<b>-mnolink-relax</b>]
+        [<b>-mno-warn-regname-label</b>]
+     
+     <em>Target RISC-V options:</em>
+        [<b>-fpic</b>|<b>-fPIC</b>|<b>-fno-pic</b>]
+        [<b>-march</b>=<var>ISA</var>]
+        [<b>-mabi</b>=<var>ABI</var>]
      
      <em>Target RL78 options:</em>
         [<b>-mg10</b>]
@@ -283,10 +301,21 @@ see <a href="Invoking.html#Invoking">Command-Line Options</a>.
      
      <em>Target SPARC options:</em>
      <!-- The order here is important.  See c-sparc.texi. -->
-        [<b>-Av6</b>|<b>-Av7</b>|<b>-Av8</b>|<b>-Asparclet</b>|<b>-Asparclite</b>
-         <b>-Av8plus</b>|<b>-Av8plusa</b>|<b>-Av9</b>|<b>-Av9a</b>]
-        [<b>-xarch=v8plus</b>|<b>-xarch=v8plusa</b>] [<b>-bump</b>]
+        [<b>-Av6</b>|<b>-Av7</b>|<b>-Av8</b>|<b>-Aleon</b>|<b>-Asparclet</b>|<b>-Asparclite</b>
+         <b>-Av8plus</b>|<b>-Av8plusa</b>|<b>-Av8plusb</b>|<b>-Av8plusc</b>|<b>-Av8plusd</b>
+         <b>-Av8plusv</b>|<b>-Av8plusm</b>|<b>-Av9</b>|<b>-Av9a</b>|<b>-Av9b</b>|<b>-Av9c</b>
+         <b>-Av9d</b>|<b>-Av9e</b>|<b>-Av9v</b>|<b>-Av9m</b>|<b>-Asparc</b>|<b>-Asparcvis</b>
+         <b>-Asparcvis2</b>|<b>-Asparcfmaf</b>|<b>-Asparcima</b>|<b>-Asparcvis3</b>
+         <b>-Asparcvisr</b>|<b>-Asparc5</b>]
+        [<b>-xarch=v8plus</b>|<b>-xarch=v8plusa</b>]|<b>-xarch=v8plusb</b>|<b>-xarch=v8plusc</b>
+         <b>-xarch=v8plusd</b>|<b>-xarch=v8plusv</b>|<b>-xarch=v8plusm</b>|<b>-xarch=v9</b>
+         <b>-xarch=v9a</b>|<b>-xarch=v9b</b>|<b>-xarch=v9c</b>|<b>-xarch=v9d</b>|<b>-xarch=v9e</b>
+         <b>-xarch=v9v</b>|<b>-xarch=v9m</b>|<b>-xarch=sparc</b>|<b>-xarch=sparcvis</b>
+         <b>-xarch=sparcvis2</b>|<b>-xarch=sparcfmaf</b>|<b>-xarch=sparcima</b>
+         <b>-xarch=sparcvis3</b>|<b>-xarch=sparcvisr</b>|<b>-xarch=sparc5</b>
+         <b>-bump</b>]
         [<b>-32</b>|<b>-64</b>]
+        [<b>--enforce-aligned-data</b>][<b>--dcti-couples-detect</b>]
      
      <em>Target TIC54X options:</em>
       [<b>-mcpu=54[123589]</b>|<b>-mcpu=54[56]lp</b>] [<b>-mfar-mode</b>|<b>-mf</b>]
@@ -433,6 +462,10 @@ suffix.
 
      <br><dt><code>--size-check=error</code><dt><code>--size-check=warning</code><dd>Issue an error or warning for invalid ELF .size directive.
 
+     <br><dt><code>--elf-stt-common=no</code><dt><code>--elf-stt-common=yes</code><dd>These options control whether the ELF assembler should generate common
+symbols with the <code>STT_COMMON</code> type.  The default can be controlled
+by a configure option <samp><span class="option">--enable-elf-stt-common</span></samp>.
+
      <br><dt><code>--help</code><dd>Print a summary of the command line options and exit.
 
      <br><dt><code>--target-help</code><dd>Print a summary of all target specific options and exit.
@@ -459,6 +492,10 @@ lines in an assembler listing to <var>number</var>.
 
      <br><dt><code>--listing-cont-lines=</code><var>number</var><dd>Set the maximum number of lines printed in a listing for a single line of input
 to <var>number</var> + 1.
+
+     <br><dt><code>--no-pad-sections</code><dd>Stop the assembler for padding the ends of output sections to the alignment
+of that section.  The default is to pad the sections, but this can waste space
+which might be needed on targets which have tight memory constraints.
 
      <br><dt><code>-o </code><var>objfile</var><dd>Name the object-file output from <samp><span class="command">as</span></samp> <var>objfile</var>.
 
@@ -683,6 +720,9 @@ a picoJava processor.
 
    </dl>
 
+   <p>See <a href="PRU-Options.html#PRU-Options">PRU Options</a>, for the options available when as is configured
+for a PRU processor.
+
    <p>The following options are available when as is configured for the
 Motorola 68HC11 or 68HC12 series.
 
@@ -749,7 +789,8 @@ extended addressing (usually 23 bits).
 behaviour in the shell. 
 </dl>
 
-   <p>The following options are available when as is configured for
+<!-- man begin OPTIONS -->
+<p>The following options are available when as is configured for
 a MIPS processor.
 
      <dl>
@@ -807,17 +848,21 @@ registers when supported by the ISA.  `<samp><span class="samp">-mfpxx</span></s
 `<samp><span class="samp">-mno-odd-spreg</span></samp>', otherwise the default is `<samp><span class="samp">-modd-spreg</span></samp>'.
 
      <br><dt><code>-mips16</code><dt><code>-no-mips16</code><dd>Generate code for the MIPS 16 processor.  This is equivalent to putting
-<code>.set mips16</code> at the start of the assembly file.  `<samp><span class="samp">-no-mips16</span></samp>'
+<code>.module mips16</code> at the start of the assembly file.  `<samp><span class="samp">-no-mips16</span></samp>'
 turns off this option.
 
-     <br><dt><code>-mmicromips</code><dt><code>-mno-micromips</code><dd>Generate code for the microMIPS processor.  This is equivalent to putting
-<code>.set micromips</code> at the start of the assembly file.  `<samp><span class="samp">-mno-micromips</span></samp>'
-turns off this option.  This is equivalent to putting <code>.set nomicromips</code>
-at the start of the assembly file.
+     <br><dt><code>-mmips16e2</code><dt><code>-mno-mips16e2</code><dd>Enable the use of MIPS16e2 instructions in MIPS16 mode.  This is equivalent
+to putting <code>.module mips16e2</code> at the start of the assembly file. 
+`<samp><span class="samp">-mno-mips16e2</span></samp>' turns off this option.
 
-     <br><dt><code>-msmartmips</code><dt><code>-mno-smartmips</code><dd>Enables the SmartMIPS extension to the MIPS32 instruction set. This is
-equivalent to putting <code>.set smartmips</code> at the start of the assembly file. 
-`<samp><span class="samp">-mno-smartmips</span></samp>' turns off this option.
+     <br><dt><code>-mmicromips</code><dt><code>-mno-micromips</code><dd>Generate code for the microMIPS processor.  This is equivalent to putting
+<code>.module micromips</code> at the start of the assembly file. 
+`<samp><span class="samp">-mno-micromips</span></samp>' turns off this option.  This is equivalent to putting
+<code>.module nomicromips</code> at the start of the assembly file.
+
+     <br><dt><code>-msmartmips</code><dt><code>-mno-smartmips</code><dd>Enables the SmartMIPS extension to the MIPS32 instruction set.  This is
+equivalent to putting <code>.module smartmips</code> at the start of the assembly
+file.  `<samp><span class="samp">-mno-smartmips</span></samp>' turns off this option.
 
      <br><dt><code>-mips3d</code><dt><code>-no-mips3d</code><dd>Generate code for the MIPS-3D Application Specific Extension. 
 This tells the assembler to accept MIPS-3D instructions. 
@@ -832,9 +877,14 @@ This tells the assembler to accept DSP Release 1 instructions.
 `<samp><span class="samp">-mno-dsp</span></samp>' turns off this option.
 
      <br><dt><code>-mdspr2</code><dt><code>-mno-dspr2</code><dd>Generate code for the DSP Release 2 Application Specific Extension. 
-This option implies -mdsp. 
+This option implies `<samp><span class="samp">-mdsp</span></samp>'. 
 This tells the assembler to accept DSP Release 2 instructions. 
 `<samp><span class="samp">-mno-dspr2</span></samp>' turns off this option.
+
+     <br><dt><code>-mdspr3</code><dt><code>-mno-dspr3</code><dd>Generate code for the DSP Release 3 Application Specific Extension. 
+This option implies `<samp><span class="samp">-mdsp</span></samp>' and `<samp><span class="samp">-mdspr2</span></samp>'. 
+This tells the assembler to accept DSP Release 3 instructions. 
+`<samp><span class="samp">-mno-dspr3</span></samp>' turns off this option.
 
      <br><dt><code>-mmsa</code><dt><code>-mno-msa</code><dd>Generate code for the MIPS SIMD Architecture Extension. 
 This tells the assembler to accept MSA instructions. 
@@ -870,6 +920,15 @@ selected, allowing construction of these floating point constants.
 branches.  By default `<samp><span class="samp">--no-relax-branch</span></samp>' is selected, causing any
 out-of-range branches to produce an error.
 
+     <br><dt><code>-mignore-branch-isa</code><dt><code>-mno-ignore-branch-isa</code><dd>Ignore branch checks for invalid transitions between ISA modes.  The
+semantics of branches does not provide for an ISA mode switch, so in
+most cases the ISA mode a branch has been encoded for has to be the
+same as the ISA mode of the branch's target label.  Therefore GAS has
+checks implemented that verify in branch assembly that the two ISA
+modes match.  `<samp><span class="samp">-mignore-branch-isa</span></samp>' disables these checks.  By
+default `<samp><span class="samp">-mno-ignore-branch-isa</span></samp>' is selected, causing any invalid
+branch requiring a transition between ISA modes to produce an error.
+
      <br><dt><code>-mnan=</code><var>encoding</var><dd>Select between the IEEE 754-2008 (<samp><span class="option">-mnan=2008</span></samp>) or the legacy
 (<samp><span class="option">-mnan=legacy</span></samp>) NaN encoding format.  The latter is the default.
 
@@ -896,6 +955,7 @@ break exception.
      <br><dt><code>-n</code><dd>When this option is used, <samp><span class="command">as</span></samp> will issue a warning every
 time it generates a nop instruction from a macro. 
 </dl>
+   <!-- man end -->
 
    <p>The following options are available when as is configured for
 an MCore processor.
@@ -933,6 +993,9 @@ for a NDS32 processor.
 <p>See <a href="PowerPC_002dOpts.html#PowerPC_002dOpts">PowerPC-Opts</a>, for the options available when as is configured
 for a PowerPC processor.
 
+   <p>See <a href="RISC_002dV_002dOptions.html#RISC_002dV_002dOptions">RISC-V-Options</a>, for the options available when as is configured
+for a RISC-V processor.
+
 <!-- man begin OPTIONS -->
 <p>See the info pages for documentation of the RX-specific options.
 
@@ -943,9 +1006,11 @@ processor family.
 <dt><code>-m31</code><dt><code>-m64</code><dd>Select the word size, either 31/32 bits or 64 bits. 
 <br><dt><code>-mesa</code><br><dt><code>-mzarch</code><dd>Select the architecture mode, either the Enterprise System
 Architecture (esa) or the z/Architecture mode (zarch). 
-<br><dt><code>-march=</code><var>processor</var><dd>Specify which s390 processor variant is the target, `<samp><span class="samp">g6</span></samp>', `<samp><span class="samp">g6</span></samp>',
-`<samp><span class="samp">z900</span></samp>', `<samp><span class="samp">z990</span></samp>', `<samp><span class="samp">z9-109</span></samp>', `<samp><span class="samp">z9-ec</span></samp>', `<samp><span class="samp">z10</span></samp>',
-`<samp><span class="samp">z196</span></samp>', `<samp><span class="samp">zEC12</span></samp>', or `<samp><span class="samp">z13</span></samp>'. 
+<br><dt><code>-march=</code><var>processor</var><dd>Specify which s390 processor variant is the target, `<samp><span class="samp">g5</span></samp>' (or
+`<samp><span class="samp">arch3</span></samp>'), `<samp><span class="samp">g6</span></samp>', `<samp><span class="samp">z900</span></samp>' (or `<samp><span class="samp">arch5</span></samp>'), `<samp><span class="samp">z990</span></samp>' (or
+`<samp><span class="samp">arch6</span></samp>'), `<samp><span class="samp">z9-109</span></samp>', `<samp><span class="samp">z9-ec</span></samp>' (or `<samp><span class="samp">arch7</span></samp>'), `<samp><span class="samp">z10</span></samp>' (or
+`<samp><span class="samp">arch8</span></samp>'), `<samp><span class="samp">z196</span></samp>' (or `<samp><span class="samp">arch9</span></samp>'), `<samp><span class="samp">zEC12</span></samp>' (or `<samp><span class="samp">arch10</span></samp>'),
+`<samp><span class="samp">z13</span></samp>' (or `<samp><span class="samp">arch11</span></samp>'), or `<samp><span class="samp">z14</span></samp>' (or `<samp><span class="samp">arch12</span></samp>'). 
 <br><dt><code>-mregnames</code><dt><code>-mno-regnames</code><dd>Allow or disallow symbolic names for registers. 
 <br><dt><code>-mwarn-areg-zero</code><dd>Warn whenever the operand for a base or index register has been specified
 but evaluates to zero. 

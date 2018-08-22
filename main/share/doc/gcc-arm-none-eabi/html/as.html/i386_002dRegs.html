@@ -12,7 +12,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -48,7 +48,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="i386_002dDependent.html#i386_002dDepend
 
 <h4 class="subsection">9.15.5 Register Naming</h4>
 
-<p><a name="index-i386-registers-1095"></a><a name="index-registers_002c-i386-1096"></a><a name="index-x86_002d64-registers-1097"></a><a name="index-registers_002c-x86_002d64-1098"></a>Register operands are always prefixed with `<samp><span class="samp">%</span></samp>'.  The 80386 registers
+<p><a name="index-i386-registers-1124"></a><a name="index-registers_002c-i386-1125"></a><a name="index-x86_002d64-registers-1126"></a><a name="index-registers_002c-x86_002d64-1127"></a>Register operands are always prefixed with `<samp><span class="samp">%</span></samp>'.  The 80386 registers
 consist of
 
      <ul>
@@ -68,8 +68,8 @@ are the high-bytes and low-bytes of `<samp><span class="samp">%ax</span></samp>'
 (data section), `<samp><span class="samp">%ss</span></samp>' (stack section), `<samp><span class="samp">%es</span></samp>', `<samp><span class="samp">%fs</span></samp>',
 and `<samp><span class="samp">%gs</span></samp>'.
 
-     <li>the 3 processor control registers `<samp><span class="samp">%cr0</span></samp>', `<samp><span class="samp">%cr2</span></samp>', and
-`<samp><span class="samp">%cr3</span></samp>'.
+     <li>the 5 processor control registers `<samp><span class="samp">%cr0</span></samp>', `<samp><span class="samp">%cr2</span></samp>',
+`<samp><span class="samp">%cr3</span></samp>', `<samp><span class="samp">%cr4</span></samp>', and `<samp><span class="samp">%cr8</span></samp>'.
 
      <li>the 6 debug registers `<samp><span class="samp">%db0</span></samp>', `<samp><span class="samp">%db1</span></samp>', `<samp><span class="samp">%db2</span></samp>',
 `<samp><span class="samp">%db3</span></samp>', `<samp><span class="samp">%db6</span></samp>', and `<samp><span class="samp">%db7</span></samp>'.
@@ -83,7 +83,7 @@ These registers are overloaded by 8 MMX registers `<samp><span class="samp">%mm0
 `<samp><span class="samp">%mm1</span></samp>', `<samp><span class="samp">%mm2</span></samp>', `<samp><span class="samp">%mm3</span></samp>', `<samp><span class="samp">%mm4</span></samp>', `<samp><span class="samp">%mm5</span></samp>',
 `<samp><span class="samp">%mm6</span></samp>' and `<samp><span class="samp">%mm7</span></samp>'.
 
-     <li>the 8 SSE registers registers `<samp><span class="samp">%xmm0</span></samp>', `<samp><span class="samp">%xmm1</span></samp>', `<samp><span class="samp">%xmm2</span></samp>',
+     <li>the 8 128-bit SSE registers registers `<samp><span class="samp">%xmm0</span></samp>', `<samp><span class="samp">%xmm1</span></samp>', `<samp><span class="samp">%xmm2</span></samp>',
 `<samp><span class="samp">%xmm3</span></samp>', `<samp><span class="samp">%xmm4</span></samp>', `<samp><span class="samp">%xmm5</span></samp>', `<samp><span class="samp">%xmm6</span></samp>' and `<samp><span class="samp">%xmm7</span></samp>'. 
 </ul>
 
@@ -97,18 +97,47 @@ pointer)
 
      <li>the 8 extended registers `<samp><span class="samp">%r8</span></samp>'&ndash;`<samp><span class="samp">%r15</span></samp>'.
 
-     <li>the 8 32-bit low ends of the extended registers: `<samp><span class="samp">%r8d</span></samp>'&ndash;`<samp><span class="samp">%r15d</span></samp>'
+     <li>the 8 32-bit low ends of the extended registers: `<samp><span class="samp">%r8d</span></samp>'&ndash;`<samp><span class="samp">%r15d</span></samp>'.
 
-     <li>the 8 16-bit low ends of the extended registers: `<samp><span class="samp">%r8w</span></samp>'&ndash;`<samp><span class="samp">%r15w</span></samp>'
+     <li>the 8 16-bit low ends of the extended registers: `<samp><span class="samp">%r8w</span></samp>'&ndash;`<samp><span class="samp">%r15w</span></samp>'.
 
-     <li>the 8 8-bit low ends of the extended registers: `<samp><span class="samp">%r8b</span></samp>'&ndash;`<samp><span class="samp">%r15b</span></samp>'
+     <li>the 8 8-bit low ends of the extended registers: `<samp><span class="samp">%r8b</span></samp>'&ndash;`<samp><span class="samp">%r15b</span></samp>'.
 
      <li>the 4 8-bit registers: `<samp><span class="samp">%sil</span></samp>', `<samp><span class="samp">%dil</span></samp>', `<samp><span class="samp">%bpl</span></samp>', `<samp><span class="samp">%spl</span></samp>'.
 
      <li>the 8 debug registers: `<samp><span class="samp">%db8</span></samp>'&ndash;`<samp><span class="samp">%db15</span></samp>'.
 
-     <li>the 8 SSE registers: `<samp><span class="samp">%xmm8</span></samp>'&ndash;`<samp><span class="samp">%xmm15</span></samp>'. 
+     <li>the 8 128-bit SSE registers: `<samp><span class="samp">%xmm8</span></samp>'&ndash;`<samp><span class="samp">%xmm15</span></samp>'. 
 </ul>
+
+   <p>With the AVX extensions more registers were made available:
+
+     <ul>
+<li>the 16 256-bit SSE `<samp><span class="samp">%ymm0</span></samp>'&ndash;`<samp><span class="samp">%ymm15</span></samp>' (only the first 8
+available in 32-bit mode).  The bottom 128 bits are overlaid with the
+`<samp><span class="samp">xmm0</span></samp>'&ndash;`<samp><span class="samp">xmm15</span></samp>' registers.
+
+   </ul>
+
+   <p>The AVX2 extensions made in 64-bit mode more registers available:
+
+     <ul>
+<li>the 16 128-bit registers `<samp><span class="samp">%xmm16</span></samp>'&ndash;`<samp><span class="samp">%xmm31</span></samp>' and the 16 256-bit
+registers `<samp><span class="samp">%ymm16</span></samp>'&ndash;`<samp><span class="samp">%ymm31</span></samp>'.
+
+   </ul>
+
+   <p>The AVX512 extensions added the following registers:
+
+     <ul>
+<li>the 32 512-bit registers `<samp><span class="samp">%zmm0</span></samp>'&ndash;`<samp><span class="samp">%zmm31</span></samp>' (only the first 8
+available in 32-bit mode).  The bottom 128 bits are overlaid with the
+`<samp><span class="samp">%xmm0</span></samp>'&ndash;`<samp><span class="samp">%xmm31</span></samp>' registers and the first 256 bits are
+overlaid with the `<samp><span class="samp">%ymm0</span></samp>'&ndash;`<samp><span class="samp">%ymm31</span></samp>' registers.
+
+     <li>the 8 mask registers `<samp><span class="samp">%k0</span></samp>'&ndash;`<samp><span class="samp">%k7</span></samp>'.
+
+   </ul>
 
    </body></html>
 

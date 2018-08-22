@@ -6,11 +6,11 @@
 <meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="start" href="index.html#Top">
 <link rel="up" href="C-Extensions.html#C-Extensions" title="C Extensions">
-<link rel="prev" href="Label-Attributes.html#Label-Attributes" title="Label Attributes">
+<link rel="prev" href="Statement-Attributes.html#Statement-Attributes" title="Statement Attributes">
 <link rel="next" href="Function-Prototypes.html#Function-Prototypes" title="Function Prototypes">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2017 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -47,14 +47,14 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <p>
 <a name="Attribute-Syntax"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="Function-Prototypes.html#Function-Prototypes">Function Prototypes</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Label-Attributes.html#Label-Attributes">Label Attributes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Statement-Attributes.html#Statement-Attributes">Statement Attributes</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="C-Extensions.html#C-Extensions">C Extensions</a>
 <hr>
 </div>
 
-<h3 class="section">6.33 Attribute Syntax</h3>
+<h3 class="section">6.37 Attribute Syntax</h3>
 
-<p><a name="index-attribute-syntax-3312"></a>
+<p><a name="index-attribute-syntax-3661"></a>
 This section describes the syntax with which <code>__attribute__</code> may be
 used, and the constructs to which attribute specifiers bind, for the C
 language.  Some details may vary for C++ and Objective-C.  Because of
@@ -75,7 +75,11 @@ semantics of attributes applying to variables.  See <a href="Type-Attributes.htm
 for details of the semantics of attributes applying to structure, union
 and enumerated types. 
 See <a href="Label-Attributes.html#Label-Attributes">Label Attributes</a>, for details of the semantics of attributes
-applying to labels.
+applying to labels. 
+See <a href="Enumerator-Attributes.html#Enumerator-Attributes">Enumerator Attributes</a>, for details of the semantics of attributes
+applying to enumerators. 
+See <a href="Statement-Attributes.html#Statement-Attributes">Statement Attributes</a>, for details of the semantics of attributes
+applying to statements.
 
  <p>An <dfn>attribute specifier</dfn> is of the form
 <code>__attribute__ ((</code><var>attribute-list</var><code>))</code>.  An <dfn>attribute list</dfn>
@@ -85,10 +89,12 @@ each attribute is one of the following:
      <ul>
 <li>Empty.  Empty attributes are ignored.
 
-     <li>A word (which may be an identifier such as <code>unused</code>, or a reserved
+     <li>An attribute name
+(which may be an identifier such as <code>unused</code>, or a reserved
 word such as <code>const</code>).
 
-     <li>A word, followed by, in parentheses, parameters for the attribute. 
+     <li>An attribute name followed by a parenthesized list of
+parameters for the attribute. 
 These parameters take one of the following forms:
 
           <ul>
@@ -107,6 +113,12 @@ with the list being a single string constant.
  <p>An <dfn>attribute specifier list</dfn> is a sequence of one or more attribute
 specifiers, not separated by any other tokens.
 
+ <p>You may optionally specify attribute names with `<samp><span class="samp">__</span></samp>'
+preceding and following the name. 
+This allows you to use them in header files without
+being concerned about a possible macro of the same name.  For example,
+you may use the attribute name <code>__noreturn__</code> instead of <code>noreturn</code>.
+
 <h5 class="subsubheading">Label Attributes</h5>
 
 <p>In GNU C, an attribute specifier list may appear after the colon following a
@@ -117,6 +129,19 @@ statement).  If the semicolon is missing, C++ label attributes are
 ambiguous, as it is permissible for a declaration, which could begin
 with an attribute list, to be labelled in C++.  Declarations cannot be
 labelled in C90 or C99, so the ambiguity does not arise there.
+
+<h5 class="subsubheading">Enumerator Attributes</h5>
+
+<p>In GNU C, an attribute specifier list may appear as part of an enumerator. 
+The attribute goes after the enumeration constant, before <code>=</code>, if
+present.  The optional attribute in the enumerator appertains to the
+enumeration constant.  It is not possible to place the attribute after
+the constant expression, if present.
+
+<h5 class="subsubheading">Statement Attributes</h5>
+
+<p>In GNU C, an attribute specifier list may appear as part of a null
+statement.  The attribute goes before the semicolon.
 
 <h5 class="subsubheading">Type Attributes</h5>
 

@@ -12,7 +12,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -52,7 +52,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Pseudo-Ops.html#Pseudo-Ops">Pseudo Ops<
 <!-- only print the extra heading if both COFF and ELF are set -->
 <h4 class="subheading">COFF Version</h4>
 
-   <p><a name="index-COFF-symbol-type-497"></a><a name="index-symbol-type_002c-COFF-498"></a><a name="index-g_t_0040code_007btype_007d-directive-_0028COFF-version_0029-499"></a>For COFF targets, this directive is permitted only within
+   <p><a name="index-COFF-symbol-type-499"></a><a name="index-symbol-type_002c-COFF-500"></a><a name="index-g_t_0040code_007btype_007d-directive-_0028COFF-version_0029-501"></a>For COFF targets, this directive is permitted only within
 <code>.def</code>/<code>.endef</code> pairs.  It is used like this:
 
 <pre class="smallexample">     .type <var>int</var>
@@ -63,7 +63,7 @@ entry.
 <!-- only print the extra heading if both COFF and ELF are set -->
 <h4 class="subheading">ELF Version</h4>
 
-   <p><a name="index-ELF-symbol-type-500"></a><a name="index-symbol-type_002c-ELF-501"></a><a name="index-g_t_0040code_007btype_007d-directive-_0028ELF-version_0029-502"></a>For ELF targets, the <code>.type</code> directive is used like this:
+   <p><a name="index-ELF-symbol-type-502"></a><a name="index-symbol-type_002c-ELF-503"></a><a name="index-g_t_0040code_007btype_007d-directive-_0028ELF-version_0029-504"></a>For ELF targets, the <code>.type</code> directive is used like this:
 
 <pre class="smallexample">     .type <var>name</var> , <var>type description</var>
 </pre>
@@ -97,7 +97,7 @@ processing.  (This is only supported on assemblers targeting GNU systems).
 
      <br><dt><code>STT_OBJECT</code><dt><code>object</code><dd>Mark the symbol as being a data object.
 
-     <br><dt><code>STT_TLS</code><dt><code>tls_object</code><dd>Mark the symbol as being a thead-local data object.
+     <br><dt><code>STT_TLS</code><dt><code>tls_object</code><dd>Mark the symbol as being a thread-local data object.
 
      <br><dt><code>STT_COMMON</code><dt><code>common</code><dd>Mark the symbol as being a common data object.
 

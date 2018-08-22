@@ -6,11 +6,11 @@
 <meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="start" href="index.html#Top">
 <link rel="up" href="Invoking-GCC.html#Invoking-GCC" title="Invoking GCC">
-<link rel="prev" href="Directory-Options.html#Directory-Options" title="Directory Options">
-<link rel="next" href="Target-Options.html#Target-Options" title="Target Options">
+<link rel="prev" href="Submodel-Options.html#Submodel-Options" title="Submodel Options">
+<link rel="next" href="Environment-Variables.html#Environment-Variables" title="Environment Variables">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2017 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -46,15 +46,15 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <div class="node">
 <p>
 <a name="Spec-Files"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="Target-Options.html#Target-Options">Target Options</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="Directory-Options.html#Directory-Options">Directory Options</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="Environment-Variables.html#Environment-Variables">Environment Variables</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="Submodel-Options.html#Submodel-Options">Submodel Options</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="Invoking-GCC.html#Invoking-GCC">Invoking GCC</a>
 <hr>
 </div>
 
-<h3 class="section">3.15 Specifying Subprocesses and the Switches to Pass to Them</h3>
+<h3 class="section">3.19 Specifying Subprocesses and the Switches to Pass to Them</h3>
 
-<p><a name="index-Spec-Files-1255"></a>
+<p><a name="index-Spec-Files-3056"></a>
 <samp><span class="command">gcc</span></samp> is a driver program.  It performs its job by invoking a
 sequence of other programs to do the work of compiling, assembling and
 linking.  GCC interprets its command-line parameters and uses these to
@@ -66,7 +66,7 @@ strings to control their behavior.  The spec strings built into GCC can
 be overridden by using the <samp><span class="option">-specs=</span></samp> command-line switch to specify
 a spec file.
 
- <p><dfn>Spec files</dfn> are plaintext files that are used to construct spec
+ <p><dfn>Spec files</dfn> are plain-text files that are used to construct spec
 strings.  They consist of a sequence of directives separated by blank
 lines.  The type of directive is determined by the first non-whitespace
 character on the line, which can be one of the following:
@@ -76,13 +76,13 @@ character on the line, which can be one of the following:
 appear here are:
 
           <dl>
-<dt><code>%include &lt;</code><var>file</var><code>&gt;</code><dd><a name="index-g_t_0040code_007b_0025include_007d-1256"></a>Search for <var>file</var> and insert its text at the current point in the
+<dt><code>%include &lt;</code><var>file</var><code>&gt;</code><dd><a name="index-g_t_0040code_007b_0025include_007d-3057"></a>Search for <var>file</var> and insert its text at the current point in the
 specs file.
 
-          <br><dt><code>%include_noerr &lt;</code><var>file</var><code>&gt;</code><dd><a name="index-g_t_0040code_007b_0025include_005fnoerr_007d-1257"></a>Just like `<samp><span class="samp">%include</span></samp>', but do not generate an error message if the include
+          <br><dt><code>%include_noerr &lt;</code><var>file</var><code>&gt;</code><dd><a name="index-g_t_0040code_007b_0025include_005fnoerr_007d-3058"></a>Just like `<samp><span class="samp">%include</span></samp>', but do not generate an error message if the include
 file cannot be found.
 
-          <br><dt><code>%rename </code><var>old_name</var> <var>new_name</var><dd><a name="index-g_t_0040code_007b_0025rename_007d-1258"></a>Rename the spec string <var>old_name</var> to <var>new_name</var>.
+          <br><dt><code>%rename </code><var>old_name</var> <var>new_name</var><dd><a name="index-g_t_0040code_007b_0025rename_007d-3059"></a>Rename the spec string <var>old_name</var> to <var>new_name</var>.
 
      </dl>
 
@@ -522,6 +522,5 @@ compilers to run).
 treated as compiler output files, and passed to the linker in their
 proper position among the other output files.
 
-<!-- man begin OPTIONS -->
-</body></html>
+ </body></html>
 

@@ -12,7 +12,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -49,7 +49,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Pseudo-Ops.html#Pseudo-Ops">Pseudo Ops<
 
 <h4 class="subsection">7.8.1 <code>.bundle_align_mode </code><var>abs-expr</var></h4>
 
-<p><a name="index-g_t_0040code_007bbundle_005falign_005fmode_007d-directive-290"></a><a name="index-bundle-291"></a><a name="index-instruction-bundle-292"></a><a name="index-aligned-instruction-bundle-293"></a><code>.bundle_align_mode</code> enables or disables <dfn>aligned instruction
+<p><a name="index-g_t_0040code_007bbundle_005falign_005fmode_007d-directive-292"></a><a name="index-bundle-293"></a><a name="index-instruction-bundle-294"></a><a name="index-aligned-instruction-bundle-295"></a><code>.bundle_align_mode</code> enables or disables <dfn>aligned instruction
 bundle</dfn> mode.  In this mode, sequences of adjacent instructions are grouped
 into fixed-sized <dfn>bundles</dfn>.  If the argument is zero, this mode is
 disabled (which is the default state).  If the argument it not zero, it
@@ -70,14 +70,14 @@ instruction's encoding is longer than the bundle size.
 
 <h4 class="subsection">7.8.2 <code>.bundle_lock</code> and <code>.bundle_unlock</code></h4>
 
-<p><a name="index-g_t_0040code_007bbundle_005flock_007d-directive-294"></a><a name="index-g_t_0040code_007bbundle_005funlock_007d-directive-295"></a>The <code>.bundle_lock</code> and directive <code>.bundle_unlock</code> directives
+<p><a name="index-g_t_0040code_007bbundle_005flock_007d-directive-296"></a><a name="index-g_t_0040code_007bbundle_005funlock_007d-directive-297"></a>The <code>.bundle_lock</code> and directive <code>.bundle_unlock</code> directives
 allow explicit control over instruction bundle padding.  These directives
 are only valid when <code>.bundle_align_mode</code> has been used to enable
 aligned instruction bundle mode.  It's an error if they appear when
 <code>.bundle_align_mode</code> has not been used at all, or when the last
 directive was <code>.bundle_align_mode&nbsp;0</code><!-- /@w -->.
 
-   <p><a name="index-bundle_002dlocked-296"></a>For some targets, it's an ABI requirement that certain instructions may
+   <p><a name="index-bundle_002dlocked-298"></a>For some targets, it's an ABI requirement that certain instructions may
 appear only as part of specified permissible sequences of multiple
 instructions, all within the same bundle.  A pair of <code>.bundle_lock</code>
 and <code>.bundle_unlock</code> directives define a <dfn>bundle-locked</dfn>

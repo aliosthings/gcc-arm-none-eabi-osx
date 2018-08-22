@@ -10,7 +10,7 @@
 <link rel="next" href="Other-Misc-Settings.html#Other-Misc-Settings" title="Other Misc Settings">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -110,82 +110,88 @@ info.
 expression parsing.  The default is off. 
 <br><dt><code>show debug expression</code><dd>Displays the current state of displaying debugging info about
 <span class="sc">gdb</span> expression parsing. 
-<br><dt><code>set debug frame</code><dd><a name="index-frame-debugging-info-1730"></a>Turns on or off display of <span class="sc">gdb</span> frame debugging info.  The
+<br><dt><code>set debug fbsd-lwp</code><dd><a name="index-FreeBSD-LWP-debug-messages-1730"></a>Turns on or off debugging messages from the FreeBSD LWP debug support. 
+<br><dt><code>show debug fbsd-lwp</code><dd>Show the current state of FreeBSD LWP debugging messages. 
+<br><dt><code>set debug frame</code><dd><a name="index-frame-debugging-info-1731"></a>Turns on or off display of <span class="sc">gdb</span> frame debugging info.  The
 default is off. 
 <br><dt><code>show debug frame</code><dd>Displays the current state of displaying <span class="sc">gdb</span> frame debugging
 info. 
-<br><dt><code>set debug gnu-nat</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fHurd-debug-messages-1731"></a>Turns on or off debugging messages from the <span class="sc">gnu</span>/Hurd debug support. 
+<br><dt><code>set debug gnu-nat</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fHurd-debug-messages-1732"></a>Turn on or off debugging messages from the <span class="sc">gnu</span>/Hurd debug support. 
 <br><dt><code>show debug gnu-nat</code><dd>Show the current state of <span class="sc">gnu</span>/Hurd debugging messages. 
-<br><dt><code>set debug infrun</code><dd><a name="index-inferior-debugging-info-1732"></a>Turns on or off display of <span class="sc">gdb</span> debugging info for running the inferior. 
+<br><dt><code>set debug infrun</code><dd><a name="index-inferior-debugging-info-1733"></a>Turns on or off display of <span class="sc">gdb</span> debugging info for running the inferior. 
 The default is off.  <samp><span class="file">infrun.c</span></samp> contains GDB's runtime state machine used
 for implementing operations such as single-stepping the inferior. 
 <br><dt><code>show debug infrun</code><dd>Displays the current state of <span class="sc">gdb</span> inferior debugging. 
-<br><dt><code>set debug jit</code><dd><a name="index-just_002din_002dtime-compilation_002c-debugging-messages-1733"></a>Turns on or off debugging messages from JIT debug support. 
+<br><dt><code>set debug jit</code><dd><a name="index-just_002din_002dtime-compilation_002c-debugging-messages-1734"></a>Turn on or off debugging messages from JIT debug support. 
 <br><dt><code>show debug jit</code><dd>Displays the current state of <span class="sc">gdb</span> JIT debugging. 
-<br><dt><code>set debug lin-lwp</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fLinux-LWP-debug-messages-1734"></a><a name="index-Linux-lightweight-processes-1735"></a>Turns on or off debugging messages from the Linux LWP debug support. 
+<br><dt><code>set debug lin-lwp</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fLinux-LWP-debug-messages-1735"></a><a name="index-Linux-lightweight-processes-1736"></a>Turn on or off debugging messages from the Linux LWP debug support. 
 <br><dt><code>show debug lin-lwp</code><dd>Show the current state of Linux LWP debugging messages. 
-<br><dt><code>set debug linux-namespaces</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fLinux-namespaces-debug-messages-1736"></a>Turns on or off debugging messages from the Linux namespaces debug support. 
+<br><dt><code>set debug linux-namespaces</code><dd><a name="index-g_t_0040sc_007bgnu_007d_002fLinux-namespaces-debug-messages-1737"></a>Turn on or off debugging messages from the Linux namespaces debug support. 
 <br><dt><code>show debug linux-namespaces</code><dd>Show the current state of Linux namespaces debugging messages. 
-<br><dt><code>set debug mach-o</code><dd><a name="index-Mach_002dO-symbols-processing-1737"></a>Control display of debugging messages related to Mach-O symbols
+<br><dt><code>set debug mach-o</code><dd><a name="index-Mach_002dO-symbols-processing-1738"></a>Control display of debugging messages related to Mach-O symbols
 processing.  The default is off. 
 <br><dt><code>show debug mach-o</code><dd>Displays the current state of displaying debugging messages related to
 reading of COFF/PE exported symbols. 
-<br><dt><code>set debug notification</code><dd><a name="index-remote-async-notification-debugging-info-1738"></a>Turns on or off debugging messages about remote async notification. 
+<br><dt><code>set debug notification</code><dd><a name="index-remote-async-notification-debugging-info-1739"></a>Turn on or off debugging messages about remote async notification. 
 The default is off. 
 <br><dt><code>show debug notification</code><dd>Displays the current state of remote async notification debugging messages. 
-<br><dt><code>set debug observer</code><dd><a name="index-observer-debugging-info-1739"></a>Turns on or off display of <span class="sc">gdb</span> observer debugging.  This
+<br><dt><code>set debug observer</code><dd><a name="index-observer-debugging-info-1740"></a>Turns on or off display of <span class="sc">gdb</span> observer debugging.  This
 includes info such as the notification of observable events. 
 <br><dt><code>show debug observer</code><dd>Displays the current state of observer debugging. 
-<br><dt><code>set debug overload</code><dd><a name="index-C_0040t_007b_002b_002b_007d-overload-debugging-info-1740"></a>Turns on or off display of <span class="sc">gdb</span> C<tt>++</tt> overload debugging
+<br><dt><code>set debug overload</code><dd><a name="index-C_0040t_007b_002b_002b_007d-overload-debugging-info-1741"></a>Turns on or off display of <span class="sc">gdb</span> C<tt>++</tt> overload debugging
 info. This includes info such as ranking of functions, etc.  The default
 is off. 
 <br><dt><code>show debug overload</code><dd>Displays the current state of displaying <span class="sc">gdb</span> C<tt>++</tt> overload
 debugging info. 
-<a name="index-expression-parser_002c-debugging-info-1741"></a><a name="index-debug-expression-parser-1742"></a><br><dt><code>set debug parser</code><dd>Turns on or off the display of expression parser debugging output. 
+<a name="index-expression-parser_002c-debugging-info-1742"></a><a name="index-debug-expression-parser-1743"></a><br><dt><code>set debug parser</code><dd>Turns on or off the display of expression parser debugging output. 
 Internally, this sets the <code>yydebug</code> variable in the expression
 parser.  See <a href="../bison/Tracing.html#Tracing">Tracing Your Parser</a>, for
 details.  The default is off. 
 <br><dt><code>show debug parser</code><dd>Show the current state of expression parser debugging. 
-<a name="index-packets_002c-reporting-on-stdout-1743"></a><a name="index-serial-connections_002c-debugging-1744"></a><a name="index-debug-remote-protocol-1745"></a><a name="index-remote-protocol-debugging-1746"></a><a name="index-display-remote-packets-1747"></a><br><dt><code>set debug remote</code><dd>Turns on or off display of reports on all packets sent back and forth across
+<a name="index-packets_002c-reporting-on-stdout-1744"></a><a name="index-serial-connections_002c-debugging-1745"></a><a name="index-debug-remote-protocol-1746"></a><a name="index-remote-protocol-debugging-1747"></a><a name="index-display-remote-packets-1748"></a><br><dt><code>set debug remote</code><dd>Turns on or off display of reports on all packets sent back and forth across
 the serial line to the remote machine.  The info is printed on the
 <span class="sc">gdb</span> standard output stream. The default is off. 
-<br><dt><code>show debug remote</code><dd>Displays the state of display of remote packets. 
-<br><dt><code>set debug serial</code><dd>Turns on or off display of <span class="sc">gdb</span> serial debugging info. The
+<br><dt><code>show debug remote</code><dd>Displays the state of display of remote packets.
+
+     <br><dt><code>set debug separate-debug-file</code><dd>Turns on or off display of debug output about separate debug file search. 
+<br><dt><code>show debug separate-debug-file</code><dd>Displays the state of separate debug file search debug output.
+
+     <br><dt><code>set debug serial</code><dd>Turns on or off display of <span class="sc">gdb</span> serial debugging info. The
 default is off. 
 <br><dt><code>show debug serial</code><dd>Displays the current state of displaying <span class="sc">gdb</span> serial debugging
 info. 
-<br><dt><code>set debug solib-frv</code><dd><a name="index-FR_002dV-shared_002dlibrary-debugging-1748"></a>Turns on or off debugging messages for FR-V shared-library code. 
+<br><dt><code>set debug solib-frv</code><dd><a name="index-FR_002dV-shared_002dlibrary-debugging-1749"></a>Turn on or off debugging messages for FR-V shared-library code. 
 <br><dt><code>show debug solib-frv</code><dd>Display the current state of FR-V shared-library code debugging
 messages. 
-<br><dt><code>set debug symbol-lookup</code><dd><a name="index-symbol-lookup-1749"></a>Turns on or off display of debugging messages related to symbol lookup. 
+<br><dt><code>set debug symbol-lookup</code><dd><a name="index-symbol-lookup-1750"></a>Turns on or off display of debugging messages related to symbol lookup. 
 The default is 0 (off). 
 A value of 1 provides basic information. 
 A value greater than 1 provides more verbose information. 
 <br><dt><code>show debug symbol-lookup</code><dd>Show the current state of symbol lookup debugging messages. 
-<br><dt><code>set debug symfile</code><dd><a name="index-symbol-file-functions-1750"></a>Turns on or off display of debugging messages related to symbol file functions. 
+<br><dt><code>set debug symfile</code><dd><a name="index-symbol-file-functions-1751"></a>Turns on or off display of debugging messages related to symbol file functions. 
 The default is off.  See <a href="Files.html#Files">Files</a>. 
 <br><dt><code>show debug symfile</code><dd>Show the current state of symbol file debugging messages. 
-<br><dt><code>set debug symtab-create</code><dd><a name="index-symbol-table-creation-1751"></a>Turns on or off display of debugging messages related to symbol table creation. 
+<br><dt><code>set debug symtab-create</code><dd><a name="index-symbol-table-creation-1752"></a>Turns on or off display of debugging messages related to symbol table creation. 
 The default is 0 (off). 
 A value of 1 provides basic information. 
 A value greater than 1 provides more verbose information. 
 <br><dt><code>show debug symtab-create</code><dd>Show the current state of symbol table creation debugging. 
-<br><dt><code>set debug target</code><dd><a name="index-target-debugging-info-1752"></a>Turns on or off display of <span class="sc">gdb</span> target debugging info. This info
+<br><dt><code>set debug target</code><dd><a name="index-target-debugging-info-1753"></a>Turns on or off display of <span class="sc">gdb</span> target debugging info. This info
 includes what is going on at the target level of GDB, as it happens. The
 default is 0.  Set it to 1 to track events, and to 2 to also track the
 value of large memory transfers. 
 <br><dt><code>show debug target</code><dd>Displays the current state of displaying <span class="sc">gdb</span> target debugging
 info. 
-<br><dt><code>set debug timestamp</code><dd><a name="index-timestampping-debugging-info-1753"></a>Turns on or off display of timestamps with <span class="sc">gdb</span> debugging info. 
+<br><dt><code>set debug timestamp</code><dd><a name="index-timestampping-debugging-info-1754"></a>Turns on or off display of timestamps with <span class="sc">gdb</span> debugging info. 
 When enabled, seconds and microseconds are displayed before each debugging
 message. 
 <br><dt><code>show debug timestamp</code><dd>Displays the current state of displaying timestamps with <span class="sc">gdb</span>
 debugging info. 
-<br><dt><code>set debug varobj</code><dd><a name="index-variable-object-debugging-info-1754"></a>Turns on or off display of <span class="sc">gdb</span> variable object debugging
+<br><dt><code>set debug varobj</code><dd><a name="index-variable-object-debugging-info-1755"></a>Turns on or off display of <span class="sc">gdb</span> variable object debugging
 info. The default is off. 
 <br><dt><code>show debug varobj</code><dd>Displays the current state of displaying <span class="sc">gdb</span> variable object
 debugging info. 
-<br><dt><code>set debug xml</code><dd><a name="index-XML-parser-debugging-1755"></a>Turns on or off debugging messages for built-in XML parsers. 
+<br><dt><code>set debug xml</code><dd><a name="index-XML-parser-debugging-1756"></a>Turn on or off debugging messages for built-in XML parsers. 
 <br><dt><code>show debug xml</code><dd>Displays the current state of XML debugging messages. 
 </dl>
 

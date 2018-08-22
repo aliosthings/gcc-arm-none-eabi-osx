@@ -10,7 +10,7 @@
 <link rel="next" href="Integer-Overflow-Builtins.html#Integer-Overflow-Builtins" title="Integer Overflow Builtins">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2017 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -53,128 +53,152 @@ Up:&nbsp;<a rel="up" accesskey="u" href="C-Extensions.html#C-Extensions">C Exten
 <hr>
 </div>
 
-<h3 class="section">6.51 Built-in Functions for Memory Model Aware Atomic Operations</h3>
+<h3 class="section">6.53 Built-in Functions for Memory Model Aware Atomic Operations</h3>
 
-<p>The following built-in functions approximately match the requirements for
-C++11 memory model. Many are similar to the `<samp><span class="samp">__sync</span></samp>' prefixed built-in
-functions, but all also have a memory model parameter.  These are all
-identified by being prefixed with `<samp><span class="samp">__atomic</span></samp>', and most are overloaded
-such that they work with multiple types.
+<p>The following built-in functions approximately match the requirements
+for the C++11 memory model.  They are all
+identified by being prefixed with `<samp><span class="samp">__atomic</span></samp>' and most are
+overloaded so that they work with multiple types.
 
- <p>GCC allows any integral scalar or pointer type that is 1, 2, 4, or 8
-bytes in length. 16-byte integral types are also allowed if
-`<samp><span class="samp">__int128</span></samp>' (see <a href="_005f_005fint128.html#g_t_005f_005fint128">__int128</a>) is supported by the architecture.
+ <p>These functions are intended to replace the legacy `<samp><span class="samp">__sync</span></samp>'
+builtins.  The main difference is that the memory order that is requested
+is a parameter to the functions.  New code should always use the
+`<samp><span class="samp">__atomic</span></samp>' builtins rather than the `<samp><span class="samp">__sync</span></samp>' builtins.
 
- <p>Target architectures are encouraged to provide their own patterns for
-each of these built-in functions.  If no target is provided, the original
-non-memory model set of `<samp><span class="samp">__sync</span></samp>' atomic built-in functions are
-utilized, along with any required synchronization fences surrounding it in
-order to achieve the proper behavior.  Execution in this case is subject
-to the same restrictions as those built-in functions.
+ <p>Note that the `<samp><span class="samp">__atomic</span></samp>' builtins assume that programs will
+conform to the C++11 memory model.  In particular, they assume
+that programs are free of data races.  See the C++11 standard for
+detailed requirements.
 
- <p>If there is no pattern or mechanism to provide a lock free instruction
-sequence, a call is made to an external routine with the same parameters
-to be resolved at run time.
+ <p>The `<samp><span class="samp">__atomic</span></samp>' builtins can be used with any integral scalar or
+pointer type that is 1, 2, 4, or 8 bytes in length.  16-byte integral
+types are also allowed if `<samp><span class="samp">__int128</span></samp>' (see <a href="_005f_005fint128.html#g_t_005f_005fint128">__int128</a>) is
+supported by the architecture.
 
  <p>The four non-arithmetic functions (load, store, exchange, and
 compare_exchange) all have a generic version as well.  This generic
-version works on any data type.  If the data type size maps to one
-of the integral sizes that may have lock free support, the generic
-version utilizes the lock free built-in function.  Otherwise an
+version works on any data type.  It uses the lock-free built-in function
+if the specific data type size makes that possible; otherwise, an
 external call is left to be resolved at run time.  This external call is
 the same format with the addition of a `<samp><span class="samp">size_t</span></samp>' parameter inserted
 as the first parameter indicating the size of the object being pointed to. 
 All objects must be the same size.
 
- <p>There are 6 different memory models that can be specified.  These map
-to the same names in the C++11 standard.  Refer there or to the
-<a href="http://gcc.gnu.org/wiki/Atomic/GCCMM/AtomicSync">GCC wiki on atomic synchronization</a> for more detailed definitions.  These memory
-models integrate both barriers to code motion as well as synchronization
-requirements with other threads. These are listed in approximately
-ascending order of strength. It is also possible to use target specific
-flags for memory model flags, like Hardware Lock Elision.
+ <p>There are 6 different memory orders that can be specified.  These map
+to the C++11 memory orders with the same names, see the C++11 standard
+or the <a href="http://gcc.gnu.org/wiki/Atomic/GCCMM/AtomicSync">GCC wiki on atomic synchronization</a> for detailed definitions.  Individual
+targets may also support additional memory orders for use on specific
+architectures.  Refer to the target documentation for details of
+these.
+
+ <p>An atomic operation can both constrain code motion and
+be mapped to hardware instructions for synchronization between threads
+(e.g., a fence).  To which extent this happens is controlled by the
+memory orders, which are listed here in approximately ascending order of
+strength.  The description of each memory order is only meant to roughly
+illustrate the effects and is not a specification; see the C++11
+memory model for precise semantics.
 
      <dl>
-<dt><code>__ATOMIC_RELAXED</code><dd>No barriers or synchronization. 
-<br><dt><code>__ATOMIC_CONSUME</code><dd>Data dependency only for both barrier and synchronization with another
-thread. 
-<br><dt><code>__ATOMIC_ACQUIRE</code><dd>Barrier to hoisting of code and synchronizes with release (or stronger)
-semantic stores from another thread. 
-<br><dt><code>__ATOMIC_RELEASE</code><dd>Barrier to sinking of code and synchronizes with acquire (or stronger)
-semantic loads from another thread. 
-<br><dt><code>__ATOMIC_ACQ_REL</code><dd>Full barrier in both directions and synchronizes with acquire loads and
-release stores in another thread. 
-<br><dt><code>__ATOMIC_SEQ_CST</code><dd>Full barrier in both directions and synchronizes with acquire loads and
-release stores in all threads. 
+<dt><code>__ATOMIC_RELAXED</code><dd>Implies no inter-thread ordering constraints. 
+<br><dt><code>__ATOMIC_CONSUME</code><dd>This is currently implemented using the stronger <code>__ATOMIC_ACQUIRE</code>
+memory order because of a deficiency in C++11's semantics for
+<code>memory_order_consume</code>. 
+<br><dt><code>__ATOMIC_ACQUIRE</code><dd>Creates an inter-thread happens-before constraint from the release (or
+stronger) semantic store to this acquire load.  Can prevent hoisting
+of code to before the operation. 
+<br><dt><code>__ATOMIC_RELEASE</code><dd>Creates an inter-thread happens-before constraint to acquire (or stronger)
+semantic loads that read from this release store.  Can prevent sinking
+of code to after the operation. 
+<br><dt><code>__ATOMIC_ACQ_REL</code><dd>Combines the effects of both <code>__ATOMIC_ACQUIRE</code> and
+<code>__ATOMIC_RELEASE</code>. 
+<br><dt><code>__ATOMIC_SEQ_CST</code><dd>Enforces total ordering with all other <code>__ATOMIC_SEQ_CST</code> operations. 
 </dl>
 
- <p>When implementing patterns for these built-in functions, the memory model
+ <p>Note that in the C++11 memory model, <em>fences</em> (e.g.,
+`<samp><span class="samp">__atomic_thread_fence</span></samp>') take effect in combination with other
+atomic operations on specific memory locations (e.g., atomic loads);
+operations on specific memory locations do not necessarily affect other
+operations in the same way.
+
+ <p>Target architectures are encouraged to provide their own patterns for
+each of the atomic built-in functions.  If no target is provided, the original
+non-memory model set of `<samp><span class="samp">__sync</span></samp>' atomic built-in functions are
+used, along with any required synchronization fences surrounding it in
+order to achieve the proper behavior.  Execution in this case is subject
+to the same restrictions as those built-in functions.
+
+ <p>If there is no pattern or mechanism to provide a lock-free instruction
+sequence, a call is made to an external routine with the same parameters
+to be resolved at run time.
+
+ <p>When implementing patterns for these built-in functions, the memory order
 parameter can be ignored as long as the pattern implements the most
-restrictive <code>__ATOMIC_SEQ_CST</code> model.  Any of the other memory models
-execute correctly with this memory model but they may not execute as
+restrictive <code>__ATOMIC_SEQ_CST</code> memory order.  Any of the other memory
+orders execute correctly with this memory order but they may not execute as
 efficiently as they could with a more appropriate implementation of the
 relaxed requirements.
 
- <p>Note that the C++11 standard allows for the memory model parameter to be
+ <p>Note that the C++11 standard allows for the memory order parameter to be
 determined at run time rather than at compile time.  These built-in
 functions map any run-time value to <code>__ATOMIC_SEQ_CST</code> rather
 than invoke a runtime library call or inline a switch statement.  This is
 standard compliant, safe, and the simplest approach for now.
 
- <p>The memory model parameter is a signed int, but only the lower 16 bits are
-reserved for the memory model.  The remainder of the signed int is reserved
+ <p>The memory order parameter is a signed int, but only the lower 16 bits are
+reserved for the memory order.  The remainder of the signed int is reserved
 for target use and should be 0.  Use of the predefined atomic values
 ensures proper usage.
 
 <div class="defun">
-&mdash; Built-in Function: <var>type</var> <b>__atomic_load_n</b> (<var>type *ptr, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fload_005fn-3534"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_load_n</b> (<var>type *ptr, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fload_005fn-3802"></a></var><br>
 <blockquote><p>This built-in function implements an atomic load operation.  It returns the
 contents of <code>*</code><var>ptr</var>.
 
-      <p>The valid memory model variants are
+      <p>The valid memory order variants are
 <code>__ATOMIC_RELAXED</code>, <code>__ATOMIC_SEQ_CST</code>, <code>__ATOMIC_ACQUIRE</code>,
 and <code>__ATOMIC_CONSUME</code>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_load</b> (<var>type *ptr, type *ret, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fload-3535"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_load</b> (<var>type *ptr, type *ret, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fload-3803"></a></var><br>
 <blockquote><p>This is the generic version of an atomic load.  It returns the
 contents of <code>*</code><var>ptr</var> in <code>*</code><var>ret</var>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_store_n</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fstore_005fn-3536"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_store_n</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fstore_005fn-3804"></a></var><br>
 <blockquote><p>This built-in function implements an atomic store operation.  It writes
 <var>val</var> into <code>*</code><var>ptr</var>.
 
-      <p>The valid memory model variants are
+      <p>The valid memory order variants are
 <code>__ATOMIC_RELAXED</code>, <code>__ATOMIC_SEQ_CST</code>, and <code>__ATOMIC_RELEASE</code>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_store</b> (<var>type *ptr, type *val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fstore-3537"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_store</b> (<var>type *ptr, type *val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fstore-3805"></a></var><br>
 <blockquote><p>This is the generic version of an atomic store.  It stores the value
 of <code>*</code><var>val</var> into <code>*</code><var>ptr</var>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: <var>type</var> <b>__atomic_exchange_n</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fexchange_005fn-3538"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_exchange_n</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fexchange_005fn-3806"></a></var><br>
 <blockquote><p>This built-in function implements an atomic exchange operation.  It writes
 <var>val</var> into <code>*</code><var>ptr</var>, and returns the previous contents of
 <code>*</code><var>ptr</var>.
 
-      <p>The valid memory model variants are
+      <p>The valid memory order variants are
 <code>__ATOMIC_RELAXED</code>, <code>__ATOMIC_SEQ_CST</code>, <code>__ATOMIC_ACQUIRE</code>,
 <code>__ATOMIC_RELEASE</code>, and <code>__ATOMIC_ACQ_REL</code>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_exchange</b> (<var>type *ptr, type *val, type *ret, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fexchange-3539"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_exchange</b> (<var>type *ptr, type *val, type *ret, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fexchange-3807"></a></var><br>
 <blockquote><p>This is the generic version of an atomic exchange.  It stores the
 contents of <code>*</code><var>val</var> into <code>*</code><var>ptr</var>. The original value
 of <code>*</code><var>ptr</var> is copied into <code>*</code><var>ret</var>.
@@ -182,30 +206,32 @@ of <code>*</code><var>ptr</var> is copied into <code>*</code><var>ret</var>.
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: bool <b>__atomic_compare_exchange_n</b> (<var>type *ptr, type *expected, type desired, bool weak, int success_memmodel, int failure_memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fcompare_005fexchange_005fn-3540"></a></var><br>
+&mdash; Built-in Function: bool <b>__atomic_compare_exchange_n</b> (<var>type *ptr, type *expected, type desired, bool weak, int success_memorder, int failure_memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fcompare_005fexchange_005fn-3808"></a></var><br>
 <blockquote><p>This built-in function implements an atomic compare and exchange operation. 
 This compares the contents of <code>*</code><var>ptr</var> with the contents of
-<code>*</code><var>expected</var> and if equal, writes <var>desired</var> into
-<code>*</code><var>ptr</var>.  If they are not equal, the current contents of
-<code>*</code><var>ptr</var> is written into <code>*</code><var>expected</var>.  <var>weak</var> is true
-for weak compare_exchange, and false for the strong variation.  Many targets
+<code>*</code><var>expected</var>. If equal, the operation is a <em>read-modify-write</em>
+operation that writes <var>desired</var> into <code>*</code><var>ptr</var>.  If they are not
+equal, the operation is a <em>read</em> and the current contents of
+<code>*</code><var>ptr</var> are written into <code>*</code><var>expected</var>.  <var>weak</var> is true
+for weak compare_exchange, which may fail spuriously, and false for
+the strong variation, which never fails spuriously.  Many targets
 only offer the strong variation and ignore the parameter.  When in doubt, use
 the strong variation.
 
-      <p>True is returned if <var>desired</var> is written into
-<code>*</code><var>ptr</var> and the execution is considered to conform to the
-memory model specified by <var>success_memmodel</var>.  There are no
-restrictions on what memory model can be used here.
+      <p>If <var>desired</var> is written into <code>*</code><var>ptr</var> then true is returned
+and memory is affected according to the
+memory order specified by <var>success_memorder</var>.  There are no
+restrictions on what memory order can be used here.
 
-      <p>False is returned otherwise, and the execution is considered to conform
-to <var>failure_memmodel</var>. This memory model cannot be
+      <p>Otherwise, false is returned and memory is affected according
+to <var>failure_memorder</var>. This memory order cannot be
 <code>__ATOMIC_RELEASE</code> nor <code>__ATOMIC_ACQ_REL</code>.  It also cannot be a
-stronger model than that specified by <var>success_memmodel</var>.
+stronger order than that specified by <var>success_memorder</var>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: bool <b>__atomic_compare_exchange</b> (<var>type *ptr, type *expected, type *desired, bool weak, int success_memmodel, int failure_memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fcompare_005fexchange-3541"></a></var><br>
+&mdash; Built-in Function: bool <b>__atomic_compare_exchange</b> (<var>type *ptr, type *expected, type *desired, bool weak, int success_memorder, int failure_memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fcompare_005fexchange-3809"></a></var><br>
 <blockquote><p>This built-in function implements the generic version of
 <code>__atomic_compare_exchange</code>.  The function is virtually identical to
 <code>__atomic_compare_exchange_n</code>, except the desired value is also a
@@ -214,39 +240,46 @@ pointer.
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: <var>type</var> <b>__atomic_add_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fadd_005ffetch-3542"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_sub_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fsub_005ffetch-3543"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_and_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fand_005ffetch-3544"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_xor_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fxor_005ffetch-3545"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_or_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005for_005ffetch-3546"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_nand_fetch</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fnand_005ffetch-3547"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_add_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fadd_005ffetch-3810"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_sub_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fsub_005ffetch-3811"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_and_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fand_005ffetch-3812"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_xor_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fxor_005ffetch-3813"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_or_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005for_005ffetch-3814"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_nand_fetch</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fnand_005ffetch-3815"></a></var><br>
 <blockquote><p>These built-in functions perform the operation suggested by the name, and
-return the result of the operation. That is,
+return the result of the operation.  Operations on pointer arguments are
+performed as if the operands were of the <code>uintptr_t</code> type.  That is,
+they are not scaled by the size of the type to which the pointer points.
 
      <pre class="smallexample">          { *ptr <var>op</var>= val; return *ptr; }
      </pre>
-      <p>All memory models are valid.
+      <p>The object pointed to by the first argument must be of integer or pointer
+type.  It must not be a boolean type.  All memory orders are valid.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_add</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fadd-3548"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_sub</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fsub-3549"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_and</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fand-3550"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_xor</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fxor-3551"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_or</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005for-3552"></a></var><br>
-&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_nand</b> (<var>type *ptr, type val, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fnand-3553"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_add</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fadd-3816"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_sub</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fsub-3817"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_and</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fand-3818"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_xor</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fxor-3819"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_or</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005for-3820"></a></var><br>
+&mdash; Built-in Function: <var>type</var> <b>__atomic_fetch_nand</b> (<var>type *ptr, type val, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ffetch_005fnand-3821"></a></var><br>
 <blockquote><p>These built-in functions perform the operation suggested by the name, and
-return the value that had previously been in <code>*</code><var>ptr</var>.  That is,
+return the value that had previously been in <code>*</code><var>ptr</var>.  Operations
+on pointer arguments are performed as if the operands were of
+the <code>uintptr_t</code> type.  That is, they are not scaled by the size of
+the type to which the pointer points.
 
      <pre class="smallexample">          { tmp = *ptr; *ptr <var>op</var>= val; return tmp; }
      </pre>
-      <p>All memory models are valid.
+      <p>The same constraints on arguments apply as for the corresponding
+<code>__atomic_op_fetch</code> built-in functions.  All memory orders are valid.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: bool <b>__atomic_test_and_set</b> (<var>void *ptr, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005ftest_005fand_005fset-3554"></a></var><br>
+&mdash; Built-in Function: bool <b>__atomic_test_and_set</b> (<var>void *ptr, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005ftest_005fand_005fset-3822"></a></var><br>
 <blockquote>
 <p>This built-in function performs an atomic test-and-set operation on
 the byte at <code>*</code><var>ptr</var>.  The byte is set to some implementation
@@ -255,12 +288,12 @@ if the previous contents were &ldquo;set&rdquo;.
 It should be only used for operands of type <code>bool</code> or <code>char</code>. For
 other types only part of the value may be set.
 
-      <p>All memory models are valid.
+      <p>All memory orders are valid.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_clear</b> (<var>bool *ptr, int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fclear-3555"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_clear</b> (<var>bool *ptr, int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fclear-3823"></a></var><br>
 <blockquote>
 <p>This built-in function performs an atomic clear operation on
 <code>*</code><var>ptr</var>.  After the operation, <code>*</code><var>ptr</var> contains 0. 
@@ -269,24 +302,24 @@ in conjunction with <code>__atomic_test_and_set</code>.
 For other types it may only clear partially. If the type is not <code>bool</code>
 prefer using <code>__atomic_store</code>.
 
-      <p>The valid memory model variants are
+      <p>The valid memory order variants are
 <code>__ATOMIC_RELAXED</code>, <code>__ATOMIC_SEQ_CST</code>, and
 <code>__ATOMIC_RELEASE</code>.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_thread_fence</b> (<var>int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fthread_005ffence-3556"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_thread_fence</b> (<var>int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fthread_005ffence-3824"></a></var><br>
 <blockquote>
 <p>This built-in function acts as a synchronization fence between threads
-based on the specified memory model.
+based on the specified memory order.
 
       <p>All memory orders are valid.
 
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: void <b>__atomic_signal_fence</b> (<var>int memmodel</var>)<var><a name="index-g_t_005f_005fatomic_005fsignal_005ffence-3557"></a></var><br>
+&mdash; Built-in Function: void <b>__atomic_signal_fence</b> (<var>int memorder</var>)<var><a name="index-g_t_005f_005fatomic_005fsignal_005ffence-3825"></a></var><br>
 <blockquote>
 <p>This built-in function acts as a synchronization fence between a thread
 and signal handlers based in the same thread.
@@ -296,10 +329,10 @@ and signal handlers based in the same thread.
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: bool <b>__atomic_always_lock_free</b> (<var>size_t size, void *ptr</var>)<var><a name="index-g_t_005f_005fatomic_005falways_005flock_005ffree-3558"></a></var><br>
+&mdash; Built-in Function: bool <b>__atomic_always_lock_free</b> (<var>size_t size, void *ptr</var>)<var><a name="index-g_t_005f_005fatomic_005falways_005flock_005ffree-3826"></a></var><br>
 <blockquote>
 <p>This built-in function returns true if objects of <var>size</var> bytes always
-generate lock free atomic instructions for the target architecture. 
+generate lock-free atomic instructions for the target architecture. 
 <var>size</var> must resolve to a compile-time constant and the result also
 resolves to a compile-time constant.
 
@@ -307,17 +340,17 @@ resolves to a compile-time constant.
 alignment.  A value of 0 indicates typical alignment should be used.  The
 compiler may also ignore this parameter.
 
-     <pre class="smallexample">          if (_atomic_always_lock_free (sizeof (long long), 0))
+     <pre class="smallexample">          if (__atomic_always_lock_free (sizeof (long long), 0))
      </pre>
       </blockquote></div>
 
 <div class="defun">
-&mdash; Built-in Function: bool <b>__atomic_is_lock_free</b> (<var>size_t size, void *ptr</var>)<var><a name="index-g_t_005f_005fatomic_005fis_005flock_005ffree-3559"></a></var><br>
+&mdash; Built-in Function: bool <b>__atomic_is_lock_free</b> (<var>size_t size, void *ptr</var>)<var><a name="index-g_t_005f_005fatomic_005fis_005flock_005ffree-3827"></a></var><br>
 <blockquote>
 <p>This built-in function returns true if objects of <var>size</var> bytes always
-generate lock free atomic instructions for the target architecture.  If
-it is not known to be lock free a call is made to a runtime routine named
-<code>__atomic_is_lock_free</code>.
+generate lock-free atomic instructions for the target architecture.  If
+the built-in function is not known to be lock-free, a call is made to a
+runtime routine named <code>__atomic_is_lock_free</code>.
 
       <p><var>ptr</var> is an optional pointer to the object that may be used to determine
 alignment.  A value of 0 indicates typical alignment should be used.  The

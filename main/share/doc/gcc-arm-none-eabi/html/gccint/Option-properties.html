@@ -9,7 +9,7 @@
 <link rel="prev" href="Option-file-format.html#Option-file-format" title="Option file format">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2017 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -263,6 +263,12 @@ other than <samp><span class="option">--help</span></samp>.
 <code>Var</code> should be saved and restored when the optimization level is
 changed with <code>optimize</code> attributes.
 
+     <br><dt><code>PerFunction</code><dd>This is an option that can be overridden on a per-function basis. 
+<code>Optimization</code> implies <code>PerFunction</code>, but options that do not
+affect executable code generation may use this flag instead, so that the
+option is not taken into account in ways that might affect executable
+code generation.
+
      <br><dt><code>Undocumented</code><dd>The option is deliberately missing documentation and should not
 be included in the <samp><span class="option">--help</span></samp> output.
 
@@ -290,7 +296,9 @@ value of <samp><span class="option">-fmath-errno</span></samp> for languages tha
      <br><dt><code>EnabledBy(</code><var>opt</var><code>)</code><dt><code>EnabledBy(</code><var>opt</var><code> || </code><var>opt2</var><code>)</code><dt><code>EnabledBy(</code><var>opt</var><code> &amp;&amp; </code><var>opt2</var><code>)</code><dd>If not explicitly set, the option is set to the value of
 <samp><span class="option">-</span><var>opt</var></samp>; multiple options can be given, separated by
 <code>||</code>.  The third form using <code>&amp;&amp;</code> specifies that the option is
-only set if both <var>opt</var> and <var>opt2</var> are set.
+only set if both <var>opt</var> and <var>opt2</var> are set. The options <var>opt</var>
+and <var>opt2</var> must have the <code>Common</code> property; otherwise, use
+<code>LangEnabledBy</code>.
 
      <br><dt><code>LangEnabledBy(</code><var>language</var><code>, </code><var>opt</var><code>)</code><dt><code>LangEnabledBy(</code><var>language</var><code>, </code><var>opt</var><code>, </code><var>posarg</var><code>, </code><var>negarg</var><code>)</code><dd>When compiling for the given language, the option is set to the value
 of <samp><span class="option">-</span><var>opt</var></samp>, if not explicitly set. <var>opt</var> can be also a list
@@ -319,7 +327,7 @@ C-family front-ends.
  </dl>
 
 <!-- markers: BUG TODO -->
-<!-- Copyright (C) 1988-2015 Free Software Foundation, Inc. -->
+<!-- Copyright (C) 1988-2017 Free Software Foundation, Inc. -->
 <!-- This is part of the GCC manual. -->
 <!-- For copying conditions, see the file gcc.texi. -->
 </body></html>

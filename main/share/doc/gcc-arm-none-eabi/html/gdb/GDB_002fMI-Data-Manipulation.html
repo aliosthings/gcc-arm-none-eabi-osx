@@ -10,7 +10,7 @@
 <link rel="next" href="GDB_002fMI-Tracepoint-Commands.html#GDB_002fMI-Tracepoint-Commands" title="GDB/MI Tracepoint Commands">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -49,7 +49,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="GDB_002fMI.html#GDB_002fMI">GDB/MI</a>
 
 <h3 class="section">27.16 <span class="sc">gdb/mi</span> Data Manipulation</h3>
 
-<p><a name="index-data-manipulation_002c-in-_0040sc_007bgdb_002fmi_007d-2937"></a><a name="index-g_t_0040sc_007bgdb_002fmi_007d_002c-data-manipulation-2938"></a>This section describes the <span class="sc">gdb/mi</span> commands that manipulate data:
+<p><a name="index-data-manipulation_002c-in-_0040sc_007bgdb_002fmi_007d-2986"></a><a name="index-g_t_0040sc_007bgdb_002fmi_007d_002c-data-manipulation-2987"></a>This section describes the <span class="sc">gdb/mi</span> commands that manipulate data:
 examine memory and registers, evaluate expressions, etc.
 
    <p>For details about what an addressable memory unit is,
@@ -64,7 +64,7 @@ see <a href="addressable-memory-unit.html#addressable-memory-unit">addressable m
 <!-- N.A. -->
 <h4 class="subheading">The <code>-data-disassemble</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002ddisassemble-2939"></a>
+<p><a name="index-g_t_002ddata_002ddisassemble-2988"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -88,9 +88,20 @@ specified.  If <var>end-addr</var> is specified as a non-zero value, and
 displayed; if <var>lines</var> is higher than the number of lines between
 <var>start-addr</var> and <var>end-addr</var>, only the lines up to <var>end-addr</var>
 are displayed. 
-<br><dt>`<samp><var>mode</var></samp>'<dd>is either 0 (meaning only disassembly), 1 (meaning mixed source and
-disassembly), 2 (meaning disassembly with raw opcodes), or 3 (meaning
-mixed source and disassembly with raw opcodes). 
+<br><dt>`<samp><var>mode</var></samp>'<dd>is one of:
+          <ul>
+<li>0 disassembly only
+<li>1 mixed source and disassembly (deprecated)
+<li>2 disassembly with raw opcodes
+<li>3 mixed source and disassembly with raw opcodes (deprecated)
+<li>4 mixed source and disassembly
+<li>5 mixed source and disassembly with raw opcodes
+</ul>
+
+     <p>Modes 1 and 3 are deprecated.  The output is &ldquo;source centric&rdquo;
+which hasn't proved useful in practice. 
+See <a href="Machine-Code.html#Machine-Code">Machine Code</a>, for a discussion of the difference between
+<code>/m</code> and <code>/s</code> output of the <code>disassemble</code> command. 
 </dl>
 
 <h5 class="subsubheading">Result</h5>
@@ -111,12 +122,12 @@ following fields:
 
      <br><dt><code>inst</code><dd>The text disassembly for this `<samp><span class="samp">address</span></samp>'.
 
-     <br><dt><code>opcodes</code><dd>This field is only present for mode 2.  This contains the raw opcode
+     <br><dt><code>opcodes</code><dd>This field is only present for modes 2, 3 and 5.  This contains the raw opcode
 bytes for the `<samp><span class="samp">inst</span></samp>' field.
 
    </dl>
 
-   <p>For modes 1 and 3 the `<samp><span class="samp">asm_insns</span></samp>' list contains tuples named
+   <p>For modes 1, 3, 4 and 5 the `<samp><span class="samp">asm_insns</span></samp>' list contains tuples named
 `<samp><span class="samp">src_and_asm_line</span></samp>', each of which has the following fields:
 
      <dl>
@@ -220,7 +231,7 @@ adjust its format.
 </pre>
    <h4 class="subheading">The <code>-data-evaluate-expression</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002devaluate_002dexpression-2940"></a>
+<p><a name="index-g_t_002ddata_002devaluate_002dexpression-2989"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -257,7 +268,7 @@ output.
 </pre>
    <h4 class="subheading">The <code>-data-list-changed-registers</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dlist_002dchanged_002dregisters-2941"></a>
+<p><a name="index-g_t_002ddata_002dlist_002dchanged_002dregisters-2990"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -291,7 +302,7 @@ has the corresponding command `<samp><span class="samp">gdb_changed_register_lis
 </pre>
    <h4 class="subheading">The <code>-data-list-register-names</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dlist_002dregister_002dnames-2942"></a>
+<p><a name="index-g_t_002ddata_002dlist_002dregister_002dnames-2991"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -329,7 +340,7 @@ corresponding command `<samp><span class="samp">gdb_regnames</span></samp>'.
 </pre>
    <h4 class="subheading">The <code>-data-list-register-values</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dlist_002dregister_002dvalues-2943"></a>
+<p><a name="index-g_t_002ddata_002dlist_002dregister_002dvalues-2992"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -410,7 +421,7 @@ don't appear in the actual output):
 </pre>
    <h4 class="subheading">The <code>-data-read-memory</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dread_002dmemory-2944"></a>
+<p><a name="index-g_t_002ddata_002dread_002dmemory-2993"></a>
 This command is deprecated, use <code>-data-read-memory-bytes</code> instead.
 
 <h5 class="subsubheading">Synopsis</h5>
@@ -509,7 +520,7 @@ used as the non-printable character.
 </pre>
    <h4 class="subheading">The <code>-data-read-memory-bytes</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dread_002dmemory_002dbytes-2945"></a>
+<p><a name="index-g_t_002ddata_002dread_002dmemory_002dbytes-2994"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 
@@ -580,7 +591,7 @@ the start address passed to <code>-data-read-memory-bytes</code>.
 </pre>
 <h4 class="subheading">The <code>-data-write-memory-bytes</code> Command</h4>
 
-<p><a name="index-g_t_002ddata_002dwrite_002dmemory_002dbytes-2946"></a>
+<p><a name="index-g_t_002ddata_002dwrite_002dmemory_002dbytes-2995"></a>
 
 <h5 class="subsubheading">Synopsis</h5>
 

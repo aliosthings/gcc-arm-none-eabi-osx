@@ -10,7 +10,7 @@
 <link rel="next" href="Notification-Packets.html#Notification-Packets" title="Notification Packets">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -48,11 +48,12 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Remote-Protocol.html#Remote-Protocol">R
 
 <h3 class="section">E.8 Interrupts</h3>
 
-<p><a name="index-interrupts-_0028remote-protocol_0029-3446"></a>
-When a program on the remote target is running, <span class="sc">gdb</span> may
-attempt to interrupt it by sending a `<samp><span class="samp">Ctrl-C</span></samp>', <code>BREAK</code> or
-a <code>BREAK</code> followed by <code>g</code>,
-control of which is specified via <span class="sc">gdb</span>'s `<samp><span class="samp">interrupt-sequence</span></samp>'.
+<p><a name="index-interrupts-_0028remote-protocol_0029-3522"></a><a name="interrupting-remote-targets"></a>
+
+   <p>In all-stop mode, when a program on the remote target is running,
+<span class="sc">gdb</span> may attempt to interrupt it by sending a `<samp><span class="samp">Ctrl-C</span></samp>',
+<code>BREAK</code> or a <code>BREAK</code> followed by <code>g</code>, control of which
+is specified via <span class="sc">gdb</span>'s `<samp><span class="samp">interrupt-sequence</span></samp>'.
 
    <p>The precise meaning of <code>BREAK</code> is defined by the transport
 mechanism and may, in fact, be undefined.  <span class="sc">gdb</span> does not
@@ -73,6 +74,12 @@ and does <em>not</em> represent an interrupt.  E.g., an `<samp><span class="samp
 When Linux kernel receives this sequence from serial port,
 it stops execution and connects to gdb.
 
+   <p>In non-stop mode, because packet resumptions are asynchronous
+(see <a href="vCont-packet.html#vCont-packet">vCont packet</a>), <span class="sc">gdb</span> is always free to send a remote
+command to the remote stub, even when the target is running.  For that
+reason, <span class="sc">gdb</span> instead sends a regular packet (see <a href="vCtrlC-packet.html#vCtrlC-packet">vCtrlC packet</a>) with the usual packet framing instead of the single byte
+<code>0x03</code>.
+
    <p>Stubs are not required to recognize these interrupt mechanisms and the
 precise meaning associated with receipt of the interrupt is
 implementation defined.  If the target supports debugging of multiple
@@ -84,7 +91,8 @@ reply packets (see <a href="Stop-Reply-Packets.html#Stop-Reply-Packets">Stop Rep
 of successfully stopping the program in all-stop mode, and a stop reply
 for each stopped thread in non-stop mode. 
 Interrupts received while the
-program is stopped are discarded.
+program is stopped are queued and the program will be interrupted when
+it is resumed next time.
 
    </body></html>
 

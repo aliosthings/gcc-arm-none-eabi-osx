@@ -7,7 +7,7 @@
 <link title="Top" rel="start" href="#Top">
 <link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
 <!--
-Copyright (C) 1988-2015 Free Software Foundation, Inc.
+Copyright (C) 1988-2017 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -44,7 +44,7 @@ This file documents the internals of the GNU compilers.
  <pre class="sp">
 
 </pre>
-Copyright &copy; 1988-2015 Free Software Foundation, Inc.
+Copyright &copy; 1988-2017 Free Software Foundation, Inc.
 
  <p>Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or
@@ -210,14 +210,15 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.4 Thread Local Storage attributes</a>
 <li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.5 Decimal floating point attributes</a>
 <li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.6 ARM-specific attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.7 MIPS-specific attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.8 PowerPC-specific attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.9 Other hardware attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.10 Environment attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.11 Other attributes</a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.12 Local to tests in <code>gcc.target/i386</code></a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.13 Local to tests in <code>gcc.target/spu/ea</code></a>
-<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.14 Local to tests in <code>gcc.test-framework</code></a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.7 AArch64-specific attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.8 MIPS-specific attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.9 PowerPC-specific attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.10 Other hardware attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.11 Environment attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.12 Other attributes</a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.13 Local to tests in <code>gcc.target/i386</code></a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.14 Local to tests in <code>gcc.target/spu/ea</code></a>
+<li><a href="Effective_002dTarget-Keywords.html#Effective_002dTarget-Keywords">7.2.3.15 Local to tests in <code>gcc.test-framework</code></a>
 </li></ul>
 <li><a href="Add-Options.html#Add-Options">7.2.4 Features for <code>dg-add-options</code></a>
 <li><a href="Require-Support.html#Require-Support">7.2.5 Variants of <code>dg-require-</code><var>support</var></a>
@@ -234,12 +235,13 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 </li></ul>
 <li><a href="Ada-Tests.html#Ada-Tests">7.3 Ada Language Testsuites</a>
 <li><a href="C-Tests.html#C-Tests">7.4 C Language Testsuites</a>
-<li><a href="libgcj-Tests.html#libgcj-Tests">7.5 The Java library testsuites.</a>
-<li><a href="LTO-Testing.html#LTO-Testing">7.6 Support for testing link-time optimizations</a>
-<li><a href="gcov-Testing.html#gcov-Testing">7.7 Support for testing <samp><span class="command">gcov</span></samp></a>
-<li><a href="profopt-Testing.html#profopt-Testing">7.8 Support for testing profile-directed optimizations</a>
-<li><a href="compat-Testing.html#compat-Testing">7.9 Support for testing binary compatibility</a>
-<li><a href="Torture-Tests.html#Torture-Tests">7.10 Support for torture testing using multiple options</a>
+<li><a href="LTO-Testing.html#LTO-Testing">7.5 Support for testing link-time optimizations</a>
+<li><a href="gcov-Testing.html#gcov-Testing">7.6 Support for testing <samp><span class="command">gcov</span></samp></a>
+<li><a href="profopt-Testing.html#profopt-Testing">7.7 Support for testing profile-directed optimizations</a>
+<li><a href="compat-Testing.html#compat-Testing">7.8 Support for testing binary compatibility</a>
+<li><a href="Torture-Tests.html#Torture-Tests">7.9 Support for torture testing using multiple options</a>
+<li><a href="GIMPLE-Tests.html#GIMPLE-Tests">7.10 Support for testing GIMPLE passes</a>
+<li><a href="RTL-Tests.html#RTL-Tests">7.11 Support for testing RTL passes</a>
 </li></ul>
 <li><a name="toc_Options" href="Options.html#Options">8 Option specification files</a>
 <ul>
@@ -326,7 +328,7 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <ul>
 <li><a href="Tuple-representation.html#Tuple-representation">11.1 Tuple representation</a>
 <ul>
-<li><a href="Tuple-representation.html#Tuple-representation">11.1.1 <code>gimple_statement_base</code> (gsbase)</a>
+<li><a href="Tuple-representation.html#Tuple-representation">11.1.1 <code>gimple</code> (gsbase)</a>
 <li><a href="Tuple-representation.html#Tuple-representation">11.1.2 <code>gimple_statement_with_ops</code></a>
 <li><a href="Tuple-representation.html#Tuple-representation">11.1.3 <code>gimple_statement_with_memory_ops</code></a>
 </li></ul>
@@ -397,9 +399,8 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <li><a href="SSA.html#SSA">12.3 Static Single Assignment</a>
 <ul>
 <li><a href="SSA.html#SSA">12.3.1 Preserving the SSA form</a>
-<li><a href="SSA.html#SSA">12.3.2 Preserving the virtual SSA form</a>
-<li><a href="SSA.html#SSA">12.3.3 Examining <code>SSA_NAME</code> nodes</a>
-<li><a href="SSA.html#SSA">12.3.4 Walking the dominator tree</a>
+<li><a href="SSA.html#SSA">12.3.2 Examining <code>SSA_NAME</code> nodes</a>
+<li><a href="SSA.html#SSA">12.3.3 Walking the dominator tree</a>
 </li></ul>
 <li><a href="Alias-analysis.html#Alias-analysis">12.4 Alias analysis</a>
 <li><a href="Memory-model.html#Memory-model">12.5 Memory model</a>
@@ -447,7 +448,6 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <li><a href="loop_002div.html#loop_002div">15.6 IV analysis on RTL</a>
 <li><a href="Number-of-iterations.html#Number-of-iterations">15.7 Number of iterations analysis</a>
 <li><a href="Dependency-analysis.html#Dependency-analysis">15.8 Data Dependency Analysis</a>
-<li><a href="Omega.html#Omega">15.9 Omega a solver for linear programming problems</a>
 </li></ul>
 <li><a name="toc_Machine-Desc" href="Machine-Desc.html#Machine-Desc">16 Machine Descriptions</a>
 <ul>
@@ -555,8 +555,9 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <li><a href="Function-Entry.html#Function-Entry">17.9.11 Function Entry and Exit</a>
 <li><a href="Profiling.html#Profiling">17.9.12 Generating Code for Profiling</a>
 <li><a href="Tail-Calls.html#Tail-Calls">17.9.13 Permitting tail calls</a>
-<li><a href="Stack-Smashing-Protection.html#Stack-Smashing-Protection">17.9.14 Stack smashing protection</a>
-<li><a href="Miscellaneous-Register-Hooks.html#Miscellaneous-Register-Hooks">17.9.15 Miscellaneous register hooks</a>
+<li><a href="Shrink_002dwrapping-separate-components.html#Shrink_002dwrapping-separate-components">17.9.14 Shrink-wrapping separate components</a>
+<li><a href="Stack-Smashing-Protection.html#Stack-Smashing-Protection">17.9.15 Stack smashing protection</a>
+<li><a href="Miscellaneous-Register-Hooks.html#Miscellaneous-Register-Hooks">17.9.16 Miscellaneous register hooks</a>
 </li></ul>
 <li><a href="Varargs.html#Varargs">17.10 Implementing the Varargs Macros</a>
 <li><a href="Trampolines.html#Trampolines">17.11 Trampolines for Nested Functions</a>
@@ -685,8 +686,7 @@ Texts being (a) (see below), and with the Back-Cover Texts being (b)
 <div class="node">
 <p>
 <a name="Top"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="Contributing.html#Contributing">Contributing</a>,
-Up:&nbsp;<a rel="up" accesskey="u" href="../index.html#DIR">(DIR)</a>
+Next:&nbsp;<a rel="next" accesskey="n" href="Contributing.html#Contributing">Contributing</a>
 <hr>
 </div>
 
@@ -696,8 +696,8 @@ Up:&nbsp;<a rel="up" accesskey="u" href="../index.html#DIR">(DIR)</a>
 This manual documents the internals of the GNU compilers, including
 how to port them to new targets and some information about how to
 write front ends for new languages.  It corresponds to the compilers
-(GNU Tools for ARM Embedded Processors)
-version 5.4.1.  The use of the GNU compilers is documented in a
+(GNU Tools for Arm Embedded Processors 7-2018-q2-update)
+version 7.3.1.  The use of the GNU compilers is documented in a
 separate manual.  See <a href="../gcc/index.html#Top">Introduction</a>.
 
  <p>This manual is mainly a reference manual rather than a tutorial.  It
@@ -752,7 +752,7 @@ implemented in GCC.
 <li><a href="Concept-Index.html#Concept-Index">Concept Index</a>:    Index of concepts and symbol names. 
 </ul>
 
-<!-- Copyright (C) 1988-2015 Free Software Foundation, Inc. -->
+<!-- Copyright (C) 1988-2017 Free Software Foundation, Inc. -->
 <!-- This is part of the GCC manual. -->
 <!-- For copying conditions, see the file gcc.texi. -->
 </body></html>

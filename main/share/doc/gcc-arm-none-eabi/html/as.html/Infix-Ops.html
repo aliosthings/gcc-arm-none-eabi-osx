@@ -11,7 +11,7 @@
 <!--
 This file documents the GNU Assembler "as".
 
-Copyright (C) 1991-2015 Free Software Foundation, Inc.
+Copyright (C) 1991-2018 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3
@@ -45,13 +45,13 @@ Up:&nbsp;<a rel="up" accesskey="u" href="Integer-Exprs.html#Integer-Exprs">Integ
 
 <h4 class="subsection">6.2.4 Infix Operators</h4>
 
-<p><a name="index-infix-operators-257"></a><a name="index-operators_002c-permitted-arguments-258"></a><dfn>Infix operators</dfn> take two arguments, one on either side.  Operators
+<p><a name="index-infix-operators-259"></a><a name="index-operators_002c-permitted-arguments-260"></a><dfn>Infix operators</dfn> take two arguments, one on either side.  Operators
 have precedence, but operations with equal precedence are performed left
 to right.  Apart from <code>+</code> or <samp><span class="option">-</span></samp>, both arguments must be
 absolute, and the result is absolute.
 
      <ol type=1 start=1>
-<a name="index-operator-precedence-259"></a><a name="index-precedence-of-operators-260"></a>
+<a name="index-operator-precedence-261"></a><a name="index-precedence-of-operators-262"></a>
 <li>Highest Precedence
 
           <dl>
@@ -82,20 +82,20 @@ absolute, and the result is absolute.
      <li>Low Precedence
 
           
-<a name="index-addition_002c-permitted-arguments-261"></a>
-<a name="index-plus_002c-permitted-arguments-262"></a>
-<a name="index-arguments-for-addition-263"></a>
+<a name="index-addition_002c-permitted-arguments-263"></a>
+<a name="index-plus_002c-permitted-arguments-264"></a>
+<a name="index-arguments-for-addition-265"></a>
 <dl><dt><code>+</code><dd><dfn>Addition</dfn>.  If either argument is absolute, the result has the section of
 the other argument.  You may not add together arguments from different
 sections.
 
-          <p><a name="index-subtraction_002c-permitted-arguments-264"></a><a name="index-minus_002c-permitted-arguments-265"></a><a name="index-arguments-for-subtraction-266"></a><br><dt><code>-</code><dd><dfn>Subtraction</dfn>.  If the right argument is absolute, the
+          <p><a name="index-subtraction_002c-permitted-arguments-266"></a><a name="index-minus_002c-permitted-arguments-267"></a><a name="index-arguments-for-subtraction-268"></a><br><dt><code>-</code><dd><dfn>Subtraction</dfn>.  If the right argument is absolute, the
 result has the section of the left argument. 
 If both arguments are in the same section, the result is absolute. 
 You may not subtract arguments from different sections. 
 <!-- FIXME is there still something useful to say about undefined - undefined ? -->
 
-          <p><a name="index-comparison-expressions-267"></a><a name="index-expressions_002c-comparison-268"></a><br><dt><code>==</code><dd><dfn>Is Equal To</dfn>
+          <p><a name="index-comparison-expressions-269"></a><a name="index-expressions_002c-comparison-270"></a><br><dt><code>==</code><dd><dfn>Is Equal To</dfn>
 <br><dt><code>&lt;&gt;</code><dt><code>!=</code><dd><dfn>Is Not Equal To</dfn>
 <br><dt><code>&lt;</code><dd><dfn>Is Less Than</dfn>
 <br><dt><code>&gt;</code><dd><dfn>Is Greater Than</dfn>
